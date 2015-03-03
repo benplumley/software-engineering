@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Contact {
 
 	// this class will be instantiated to create a unique contact in the address book.
@@ -7,7 +9,11 @@ public class Contact {
 	private String mobileNumber; // phone numbers must be strings to preserve leading zeroes
 	private String homeNumber;
 
-	public Contact() {
+	public Contact(File saveFile) {
+
+	}
+
+	public Contact(String uniqueID) {
 
 	}
 
