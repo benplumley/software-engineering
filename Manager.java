@@ -21,7 +21,7 @@ public abstract class Manager {
 	protected int generateGUID() {
 		boolean conflictingID = true;
 		// Random rand
-		while (conflictingID) {
+		while (conflictingID) { // generate a new GUID
 
 		}
 	}
