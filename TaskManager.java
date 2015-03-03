@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
-public class TaskManager {
+public class TaskManager extends Manager {
 
 	private ArrayList<Task> taskList = new ArrayList<Task>();
 	private static final int SAVE_FILE_LENGTH = 7;

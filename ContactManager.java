@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
-public class ContactManager {
+public class ContactManager extends Manager {
 
 	private ArrayList<Contact> contactList = new ArrayList<Contact>();
 	private static final int SAVE_FILE_LENGTH = 15;

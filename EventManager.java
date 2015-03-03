@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
-public class EventManager {
+public class EventManager extends Manager {
 
 	private ArrayList<Event> eventList = new ArrayList<Event>();
 	private static final int SAVE_FILE_LENGTH = 10;
