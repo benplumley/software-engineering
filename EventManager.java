@@ -8,7 +8,7 @@ public class EventManager {
 	private static final int SAVE_FILE_LENGTH = 10;
 
 	public EventManager() {
-
+		loadEventsFromFile();
 	}
 
 	private void loadEventsFromFile() {
