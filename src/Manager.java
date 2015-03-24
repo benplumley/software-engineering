@@ -24,6 +24,8 @@ public abstract class Manager {
 		while (conflictingID) { // generate a new GUID
 
 		}
+		
+		return 0;
 	}
 
 }
