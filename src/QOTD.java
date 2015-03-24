@@ -7,7 +7,7 @@ public class QOTD {
 	}
 
 	private String[] loadQuoteFromFile() {
-
+		return new String[1];
 	}
 
 }

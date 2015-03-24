@@ -25,7 +25,7 @@ public abstract class Manager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
+		
 		return files;
 	}
 
