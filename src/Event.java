@@ -10,7 +10,8 @@ public class Event {
     private UUID id;
 	private String eventName;
 	private String location; //An arbitary 'location' of the event, set by the user.
-	private Date date;
+	private Date startDate;
+	private Date endDate;
 	
 	//Constructors
 
@@ -60,17 +61,31 @@ public class Event {
 		return eventName;
 	}
 	/**
-	 * Set the date.
-	 * @param setDate date to set.
+	 * Set the start date.
+	 * @param setStartDate start date to set.
 	 */
-	public void setDate(Date setDate){
-		date = setDate;
+	public void setStartDate(Date setStartDate){
+		startDate = setStartDate;
 	}
 	/**
-	 * Get the date.
-	 * @return Date of the event.
+	 * Get the start date.
+	 * @return Start Date of the event.
 	 */
-	public Date getDate(){
-		return date;
+	public Date getStartDate(){
+		return startDate;
+	}
+	/**
+	 * Set the end date.
+	 * @param setStartDate start date to set.
+	 */
+	public void setEndDate(Date setEndDate){
+		endDate = setEndDate;
+	}
+	/**
+	 * Get the end date.
+	 * @return End Date of the event.
+	 */
+	public Date getEndDate(){
+		return endDate;
 	}
 }
