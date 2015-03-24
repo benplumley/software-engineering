@@ -16,10 +16,6 @@ public class QOTD {
 
 	}
 
-<<<<<<< HEAD
-	private String[] loadQuoteFromFile() {
-		return new String[1];
-=======
 	private String loadQuoteFromFile() {
 		try {
 			File quoteFile = new File("Data/Quotes/quotes.txt");
@@ -32,7 +28,6 @@ public class QOTD {
 			e.printStackTrace();
 			return "";
 		}
->>>>>>> conflict-res
 	}
 
 }
