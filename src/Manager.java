@@ -24,7 +24,7 @@ public abstract class Manager {
 			File[] saveFiles = new File(path).listFiles();
 			for (File saveFile : saveFiles) {
 				List<String> lines = Files.readAllLines(saveFile.toPath(), Charset.defaultCharset());
-				if (isValidFile(lines)) {
+				if (isFileValid(lines)) {
 					files.add(lines);
 				}
 			}
@@ -36,5 +36,5 @@ public abstract class Manager {
 		return files;
 	}
 
-	protected abstract boolean isValidFile(List<String> lines);
+	protected abstract boolean isFileValid(List<String> lines);
 }

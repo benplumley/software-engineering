@@ -4,6 +4,9 @@ import java.util.Scanner;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.UUID;
+import java.util.HashMap;
 
 public class ContactManager extends Manager {
 
@@ -23,7 +26,7 @@ public class ContactManager extends Manager {
 	}
 
 	@Override
-	private boolean isFileValid(List<String> lines) {
+	protected boolean isFileValid(List<String> lines) {
 		if (lines.size() != SAVE_FILE_LENGTH) {
 			return false;
 		}
