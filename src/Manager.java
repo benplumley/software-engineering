@@ -8,13 +8,17 @@ public abstract class Manager {
 
 	}
 
+	/**
+	 * Loads all the files in a given directory and checks that they are valid
+	 * @param path Path to load all files in a given folder
+	 */
 	public List<List<String>> loadFiles(String path) {
 
 		List<List<String>> files = new ArrayList<>();
 
 		try {
 			File[] saveFiles = new File(path).listFiles();
-			for (File saveFile : saveFiles) { // iterates through the files in the directory
+			for (File saveFile : saveFiles) {
 				List<String> lines = Files.readAllLines(Paths.get(toCheck.getAbsolutePath()), Charset.defaultCharset());
 
 				if (isFileValid(lines)) {
@@ -25,7 +29,7 @@ public abstract class Manager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		
+
 		return files;
 	}
 
