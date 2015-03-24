@@ -1,6 +1,10 @@
 import java.util.Random;
 import java.util.Scanner;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 public abstract class Manager {
 
@@ -19,9 +23,8 @@ public abstract class Manager {
 		try {
 			File[] saveFiles = new File(path).listFiles();
 			for (File saveFile : saveFiles) {
-				List<String> lines = Files.readAllLines(Paths.get(toCheck.getAbsolutePath()), Charset.defaultCharset());
-
-				if (isFileValid(lines)) {
+				List<String> lines = Files.readAllLines(saveFile.toPath(), Charset.defaultCharset());
+				if (isValidFile(lines)) {
 					files.add(lines);
 				}
 			}
