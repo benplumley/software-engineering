@@ -10,25 +10,45 @@ public class Contact {
 	private String surname;
 	private String mobileNumber; // phone numbers must be strings to preserve leading zeroes
 	private String homeNumber;
+	private String workNumber;
+	private List<String> otherNumbers;
+	private List<String> emails;
+	private List<Object> groups; // todo this
+	private String addressLine1;
+	private String addressLine2;
+	private String city;
+	private String postcode;
+	private String notes;
 
 	/**
 	 * Constructs the Contact class from a given file
 	 * @param saveFile File to load from
 	 */
-	public Contact(File saveFile, List<String> lines) {
+	public Contact(String fileName, List<String> lines) {
 		this.id = UUID.fromString(saveFile.getName());
+
 	}
 
 	/**
 	 * Constructs the Contact class with a given unique ID
 	 * @param uniqueID ID of the contact
 	 */
-	public Contact(UUID uniqueID, String firstName, String surname, String mobileNumber, String homeNumber) {
+	public Contact(UUID uniqueID, String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
+					List<String> emails, List<Object> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
 		this.id = uniqueID;
 		this.firstName = firstName;
 		this.surname = surname;
 		this.mobileNumber = mobileNumber;
 		this.homeNumber = homeNumber;
+		this.workNumber = workNumber;
+		this.otherNumbers = otherNumbers;
+		this.emails = emails;
+		this.groups = groups; // todo this
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.postcode = postcode;
+		this.notes = notes;
 	}
 
 	/**
