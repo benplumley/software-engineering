@@ -18,18 +18,17 @@ public class ContactManager extends Manager {
 
 	protected void loadContacts() {
 		for (List<String> lines : loadFiles("/Data/My Contacts")) {
-			Contact contact = new Contact(UUID.fromString(lines.get(0)), lines);
+			Contact contact = new Contact(lines.get(0), lines);
 		}
 	}
 
 	@Override
 	private boolean isFileValid(List<String> lines) {
-		if (lines.size() != SAVE_FILE_LENGTH)
-		{
+		if (lines.size() != SAVE_FILE_LENGTH) {
 			return false;
 		}
 
-		return lines.get(0).length() > 0 && lines.get(1).length() > 0 && lines.get(2).length() > 0;
+		return lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and first name is required
 	}
 
 }
