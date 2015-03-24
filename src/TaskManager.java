@@ -14,13 +14,13 @@ public class TaskManager extends Manager {
 	private void loadTasksFromFile() {
 		File[] saveFiles = new File("/Data/My Tasks").listFiles();
 		for (File saveFile : saveFiles) { // iterates through the files in the directory
-			if (fileValid(saveFile)) {
+			if (isFileValid(saveFile)) {
 				taskList.add(new Task(saveFile));
 			}
 		}
 	}
 
-	private boolean fileValid(File toCheck) {
+	private boolean isFileValid(File toCheck) {
 		ArrayList<String> lines = new ArrayList<String>();
 		try (Scanner fileReader = new Scanner(toCheck)) {
 			int i = 0;

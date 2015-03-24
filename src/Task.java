@@ -1,5 +1,7 @@
 import java.io.File;
 import java.util.UUID;
+import java.util.Date;
+
 public class Task {
 	private final UUID id;
 	private String taskName;
@@ -10,7 +12,7 @@ public class Task {
 	// this class will be instantiated to create a unique coursework/homework task.
 
 	public Task(File saveFile) {
-
+		this.id = UUID.fromString(saveFile.getName());
 
 	}
 
@@ -35,7 +37,7 @@ public class Task {
 	}
 
 	public boolean getTaskStatus() {
-		return status;
+		return taskStatus;
 	}
 
 	public String getTaskNotes() {
