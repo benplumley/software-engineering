@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.UUID;
+import java.util.List;
 
 public class Contact {
 
@@ -24,9 +25,19 @@ public class Contact {
 	 * Constructs the Contact class from a given file
 	 * @param saveFile File to load from
 	 */
-	public Contact(String fileName, List<String> lines) {
+	public Contact(File saveFile) {
 		this.id = UUID.fromString(saveFile.getName());
 
+	}
+
+	/**
+	 * Constructs the Contact class from the lines provided. TODO is this constructor needed in
+	 * addition to the one taking a File?
+	 * @param fileName Name of the file to be loaded
+	 * @param lines Contents of the file to be loaded
+	 */
+	public Contact(String fileName, List<String> lines) {
+		this.id = UUID.fromString(fileName);
 	}
 
 	/**
