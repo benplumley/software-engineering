@@ -10,10 +10,12 @@ public class Task {
 	private String taskNotes;
 
 	// this class will be instantiated to create a unique coursework/homework task.
-
-	public Task(File saveFile) {
-		this.id = UUID.fromString(saveFile.getName());
-
+	public Contact(String fileName, List<String> lines) {
+		this.id = UUID.fromString(fileName);
+		this.taskName = lines.get(1);
+		this.dueDateTime = lines.get(2);
+		this.taskStatus = Boolean.parseBoolean(lines.get(3));
+		this.taskNotes = lines.get(4);
 	}
 
 	public Task(UUID uniqueID, String name, Date due,String notes) {

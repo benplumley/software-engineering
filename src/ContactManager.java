@@ -27,11 +27,7 @@ public class ContactManager extends Manager {
 
 	@Override
 	protected boolean isFileValid(List<String> lines) {
-		if (lines.size() != SAVE_FILE_LENGTH) {
-			return false;
-		}
-
-		return lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and first name is required
+		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and first name is required
 	}
 
 }

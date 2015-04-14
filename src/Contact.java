@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.UUID;
 import java.util.List;
+import java.util.Arrays;
 
 public class Contact {
 
@@ -14,21 +15,12 @@ public class Contact {
 	private String workNumber;
 	private List<String> otherNumbers;
 	private List<String> emails;
-	private List<Object> groups; // todo this
+	private List<String> groups; // todo this
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
 	private String postcode;
 	private String notes;
-
-	/**
-	 * Constructs the Contact class from a given file
-	 * @param saveFile File to load from
-	 */
-	public Contact(File saveFile) {
-		this.id = UUID.fromString(saveFile.getName());
-
-	}
 
 	/**
 	 * Constructs the Contact class from the lines provided. TODO is this constructor needed in
@@ -38,6 +30,19 @@ public class Contact {
 	 */
 	public Contact(String fileName, List<String> lines) {
 		this.id = UUID.fromString(fileName);
+		this.firstName = lines.get(1);
+		this.surname = lines.get(2);
+		this.mobileNumber = lines.get(3);
+		this.homeNumber = lines.get(4);
+		this.workNumber = lines.get(5);
+		this.otherNumbers = Arrays.asList(lines.get(6).split(","));
+		this.emails = Arrays.asList(lines.get(7).split(","));
+		this.groups = Arrays.asList(lines.get(8).split(","));
+		this.addressLine1 = lines.get(9);
+		this.addressLine2 = lines.get(10);
+		this.city = lines.get(11);
+		this.postcode = lines.get(12);
+		this.notes = lines.get(13);
 	}
 
 	/**
@@ -45,7 +50,7 @@ public class Contact {
 	 * @param uniqueID ID of the contact
 	 */
 	public Contact(UUID uniqueID, String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
-					List<String> emails, List<Object> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
+					List<String> emails, List<String> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
 		this.id = uniqueID;
 		this.firstName = firstName;
 		this.surname = surname;

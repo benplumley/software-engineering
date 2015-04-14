@@ -1,7 +1,6 @@
 # This sample contact file shows the format a contacts file must be in. Actual save files will not allow comments. Any line not marked by * can be blank (consisting only of a newline) if that field is not known.
 Unique identifier * (same as file name?)
 First name *
-Middle name(s)
 Surname
 Mobile number
 Home number
