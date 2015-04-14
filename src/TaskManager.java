@@ -1,43 +1,28 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.*;
+import java.util.Map;
+import java.util.UUID;
+import java.util.HashMap;
 
 public class TaskManager extends Manager {
 
-	private ArrayList<Task> taskList = new ArrayList<Task>();
+	private final Map<UUID, Contact> tasks;
 	private static final int SAVE_FILE_LENGTH = 7;
 
 	public TaskManager() {
-		loadTasksFromFile();
+		this.tasks = new HashMap<>();
+
+		loadTasks();
 	}
 
-	private void loadTasksFromFile() {
-		File[] saveFiles = new File("/Data/My Tasks").listFiles();
-		for (File saveFile : saveFiles) { // iterates through the files in the directory
-			if (isFileValid(saveFile)) {
-				taskList.add(new Task(saveFile));
-			}
+	protected void loadTasks() {
+		for (List<String> lines : loadFiles("/Data/My Tasks")) {
+			Task task = new Task(lines.get(0), lines);
+
+			this.tasks.put(task.getId(), task);
 		}
 	}
 
-	private boolean isFileValid(File toCheck) {
-		ArrayList<String> lines = new ArrayList<String>();
-		try (Scanner fileReader = new Scanner(toCheck)) {
-			int i = 0;
-			while (fileReader.hasNext()) {
-				lines.add(new String(fileReader.nextLine()));
-			}
-			if (lines.size() != SAVE_FILE_LENGTH) { // file did not contain the right number of lines
-				return false;
-			} else if (lines.get(0).length() == 0) { // no GUID was provided
-				return false;
-			} else if (lines.get(1).length() == 0) { // no task name was provided
-				return false;
-			}
-			return true;
-		} catch (FileNotFoundException e) { // the file does not exist
-			return false;
-		}
+	@Override
+	protected boolean isFileValid(List<String> lines) {
+		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and name is required
 	}
-
 }
