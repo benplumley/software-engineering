@@ -10,7 +10,7 @@ public class EventManager extends Manager {
 
 	public EventManager() {
 		events = new HashMap<>();
-		loadevents();
+		loadEvents();
 	}
 
 	protected void loadEvents() {
