@@ -4,6 +4,8 @@ import java.util.Date;
 import java.io.*;
 
 public class Task implements Savable {
+	private final DateFormat dateFormat;
+
 	private final UUID id;
 	private String taskName;
 	private Date dueDateTime;
@@ -12,9 +14,10 @@ public class Task implements Savable {
 
 	// this class will be instantiated to create a unique coursework/homework task.
 	public Contact(String fileName, List<String> lines) {
+		format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		this.id = UUID.fromString(fileName);
 		this.taskName = lines.get(1);
-		this.dueDateTime = lines.get(2);
+		this.dueDateTime = this.dateFormat.parse(lines.get(2));
 		this.taskStatus = Boolean.parseBoolean(lines.get(3));
 		this.taskNotes = lines.get(4);
 	}
