@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -52,6 +53,30 @@ public class Event implements Savable {
 	 * Set the location.
 	 * @param locationSet Location string to set.
 	 */
+	public void setAttendees(String attendeeSet){
+		attendees = attendeeSet;
+	}
+
+	public String getAttendees(){
+		return attendees;
+	}
+
+	public void setNote(String noteSet){
+		noteses = noteSet;
+	}
+
+	public String getNotes(){
+		return notes;
+	}
+
+	public void setCategory(String categorySet){
+		category = categorySet;
+	}
+
+	public String getCategory(){
+		return category;
+	}
+
 	public void setLocation(String locationSet){
 		location = locationSet;
 	}
@@ -108,17 +133,20 @@ public class Event implements Savable {
 	@Override
 	public void addOrUpdate() {
 		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
+			File file = new File("/Data/My Events/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
 			}
 
 			try (PrintWriter writer = new PrintWriter(file)) {
 				writer.println(this.id.toString());
-				writer.println(this.taskName.toString());
-				writer.println(this.dueDateTime.toString());
-				writer.println(this.taskStatus.toString());
-				writer.println(this.taskNotes.toString());
+				writer.println(this.eventName);
+				writer.println(this.format.format(startDate));
+				writer.println(this.format.format(endDate));
+				writer.println(this.location);
+				writer.println(this.attendees);
+				writer.println(this.category);
+				writer.println(this.notes);
 			}
 		}
 		catch (IOException ex) {
@@ -129,7 +157,7 @@ public class Event implements Savable {
 	@Override
 	public void delete() {
 		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
+			File file = new File("/Data/My Events/" + this.id.toString());
 			file.delete();
 		}
 		catch (IOException ex) {
