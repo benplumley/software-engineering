@@ -49,9 +49,9 @@ public class Contact {
 	 * Constructs the Contact class with a given unique ID
 	 * @param uniqueID ID of the contact
 	 */
-	public Contact(UUID uniqueID, String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
+	public Contact(String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
 					List<String> emails, List<String> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
-		this.id = uniqueID;
+		this.id = UUID.randomUUID();
 		this.firstName = firstName;
 		this.surname = surname;
 		this.mobileNumber = mobileNumber;
