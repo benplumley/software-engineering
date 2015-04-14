@@ -1,8 +1,9 @@
 import java.io.File;
 import java.util.UUID;
 import java.util.Date;
+import java.io.*;
 
-public class Task {
+public class Task implements Savable {
 	private final UUID id;
 	private String taskName;
 	private Date dueDateTime;
@@ -62,4 +63,35 @@ public class Task {
 		taskNotes = newNotes;
 	}
 
+	@Override
+	public void addOrUpdate() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			try (PrintWriter writer = new PrintWriter(file)) {
+				writer.println(this.id.toString());
+				writer.println(this.taskName.toString());
+				writer.println(this.dueDateTime.toString());
+				writer.println(this.taskStatus.toString());
+				writer.println(this.taskNotes.toString());
+			}
+		}
+		catch (IOException ex) {
+
+		}
+	}
+
+	@Override
+	public void delete() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			file.delete();
+		}
+		catch (IOException ex) {
+
+		}
+	}
 }
