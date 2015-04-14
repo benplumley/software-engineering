@@ -1,4 +1,9 @@
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.Date;
 import java.io.*;
@@ -15,15 +20,21 @@ public class Task implements Savable {
 	// this class will be instantiated to create a unique coursework/homework task.
 
 	public Task(String fileName, List<String> lines) {
-		format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
+		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		this.id = UUID.fromString(fileName);
 		this.taskName = lines.get(1);
-		this.dueDateTime = this.dateFormat.parse(lines.get(2));
+		try {
+			this.dueDateTime = this.dateFormat.parse(lines.get(2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.taskStatus = Boolean.parseBoolean(lines.get(3));
 		this.taskNotes = lines.get(4);
 	}
 
 	public Task(UUID uniqueID, String name, Date due,String notes) {
+		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		id = uniqueID;
 		taskName = name;
 		dueDateTime = due;
@@ -31,7 +42,7 @@ public class Task implements Savable {
 		taskNotes = notes;
 	}
 
-	public UUID getID() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -79,7 +90,7 @@ public class Task implements Savable {
 				writer.println(this.id.toString());
 				writer.println(this.taskName.toString());
 				writer.println(this.dueDateTime.toString());
-				writer.println(this.taskStatus.toString());
+				writer.println(this.taskStatus);
 				writer.println(this.taskNotes.toString());
 			}
 		}
@@ -90,12 +101,7 @@ public class Task implements Savable {
 
 	@Override
 	public void delete() {
-		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
-			file.delete();
-		}
-		catch (IOException ex) {
-
-		}
+		File file = new File("/Data/My Tasks/" + this.id.toString());
+		file.delete();
 	}
 }

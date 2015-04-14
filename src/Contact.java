@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.UUID;
 import java.util.List;
 import java.util.Arrays;
@@ -188,12 +190,7 @@ public class Contact implements Savable {
 
 	@Override
 	public void delete() {
-		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
-			file.delete();
-		}
-		catch (IOException ex) {
-
-		}
+		File file = new File("/Data/My Tasks/" + this.id.toString());
+		file.delete();
 	}
 }

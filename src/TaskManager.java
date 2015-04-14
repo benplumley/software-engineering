@@ -1,10 +1,11 @@
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
 
 public class TaskManager extends Manager {
 
-	private final Map<UUID, Contact> tasks;
+	private final Map<UUID, Task> tasks;
 	private static final int SAVE_FILE_LENGTH = 7;
 
 	public TaskManager() {
@@ -17,7 +18,7 @@ public class TaskManager extends Manager {
 		for (List<String> lines : loadFiles("/Data/My Tasks")) {
 			Task task = new Task(lines.get(0), lines);
 
-			this.tasks.put(task.getId(), task);
+			this.tasks.put(task.getId(), task); //getID undefined for type task
 		}
 	}
 
