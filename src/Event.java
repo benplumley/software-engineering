@@ -6,32 +6,48 @@ public class Event {
 
 	// this class will be instantiated to create a unique event. Recurring events instantiate only
 	// once for the whole series.
-	
-    private UUID id;
+	DateFormat format;
+  private UUID id;
 	private String eventName;
-	private String location; //An arbitary 'location' of the event, set by the user.
 	private Date startDate;
 	private Date endDate;
-	
-	//Constructors
+	private String location; //An arbitary 'location' of the event, set by the user.
+	private String attendees;
+	private String notes;
+	private String category;
 
-	/**
-	 * Construct new event given a file.
-	 * @param saveFile File to load.
-	 */
-	public Event(File saveFile) {
-		id =  UUID.fromString(saveFile.getName());
+
+	//Constructors
+	public Event(String fileName, List<String> lines) {
+		format = new SimpleDateFormat("dd, MM, yyyy, hh, mm", Locale.ENGLISH);
+		this.id = UUID.fromString(fileName);
+		this.eventName = lines.get(1);
+		this.startDate= format.parse(lines.get(2));
+		this.endDate = format.parse(lines.get(3));
+		this.location = lines.get(4);
+		this.attendees = lines.get(5);
+		this.category = lines.get(6);
+		this.notes = lines.get(7);
 	}
+
 	/**
 	 * Construct new event with specified id.
 	 * @param uid UUID to set as the id.
 	 */
-	public Event(UUID uid) {
-		id = uid;
+	public Event(String eventName,String startDate,String endDate,String location,String attendees,String category,String notes) {
+		format = new SimpleDateFormat("dd, MM, yyyy, hh, mm", Locale.ENGLISH);
+		this.id = UUID.randomUID();
+		this.eventName = eventName;
+		this.startDate= format.parse(startDate);
+		this.endDate = format.parse(endDate);
+		this.location = location;
+		this.attendees = attendees;
+		this.category = category;
+		this.notes = notes;
 	}
-	
+
 	//Accessors and mutators.
-	
+
 	/**
 	 * Set the location.
 	 * @param locationSet Location string to set.
