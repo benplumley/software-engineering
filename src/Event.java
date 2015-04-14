@@ -6,7 +6,7 @@ public class Event {
 
 	// this class will be instantiated to create a unique event. Recurring events instantiate only
 	// once for the whole series.
-	DateFormat format;
+	private final DateFormat format;
   private UUID id;
 	private String eventName;
 	private Date startDate;
@@ -19,7 +19,7 @@ public class Event {
 
 	//Constructors
 	public Event(String fileName, List<String> lines) {
-		format = new SimpleDateFormat("dd, MM, yyyy, hh, mm", Locale.ENGLISH);
+		format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		this.id = UUID.fromString(fileName);
 		this.eventName = lines.get(1);
 		this.startDate= format.parse(lines.get(2));
@@ -35,7 +35,7 @@ public class Event {
 	 * @param uid UUID to set as the id.
 	 */
 	public Event(String eventName,String startDate,String endDate,String location,String attendees,String category,String notes) {
-		format = new SimpleDateFormat("dd, MM, yyyy, hh, mm", Locale.ENGLISH);
+		format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		this.id = UUID.randomUID();
 		this.eventName = eventName;
 		this.startDate= format.parse(startDate);
