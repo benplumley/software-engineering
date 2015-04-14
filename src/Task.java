@@ -11,7 +11,7 @@ public class Task implements Savable {
 	private String taskNotes;
 
 	// this class will be instantiated to create a unique coursework/homework task.
-	public Contact(String fileName, List<String> lines) {
+	public Task(String fileName, List<String> lines) {
 		this.id = UUID.fromString(fileName);
 		this.taskName = lines.get(1);
 		this.dueDateTime = lines.get(2);

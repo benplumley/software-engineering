@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
@@ -23,5 +24,4 @@ public class EventManager extends Manager {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 &&
 		 lines.get(1).length() > 0 && lines.get(2).length() > 0 && lines.get(3).length() > 0; // id, event name, start date and end date is required
 	}
-
 }
