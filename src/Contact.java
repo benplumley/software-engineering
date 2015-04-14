@@ -23,8 +23,7 @@ public class Contact {
 	private String notes;
 
 	/**
-	 * Constructs the Contact class from the lines provided. TODO is this constructor needed in
-	 * addition to the one taking a File?
+	 * Constructs the Contact class from the lines provided.
 	 * @param fileName Name of the file to be loaded
 	 * @param lines Contents of the file to be loaded
 	 */
