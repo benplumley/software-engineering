@@ -3,7 +3,7 @@ import java.util.UUID;
 import java.util.List;
 import java.util.Arrays;
 
-public class Contact {
+public class Contact implements Savable {
 
 	// this class will be instantiated to create a unique contact in the address book.
 
@@ -137,5 +137,36 @@ public class Contact {
 	public void setHomeNumber(String value) {
 		this.homeNumber = value;
 	}
+	
+	@Override
+	public void addOrUpdate() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			if (!file.exists()) {
+				file.createNewFile();
+			}
 
+			try (PrintWriter writer = new PrintWriter(file)) {
+				writer.println(this.id.toString());
+				writer.println(this.taskName.toString());
+				writer.println(this.dueDateTime.toString());
+				writer.println(this.taskStatus.toString());
+				writer.println(this.taskNotes.toString());
+			}
+		}
+		catch (IOException ex) {
+
+		}
+	}
+
+	@Override
+	public void delete() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			file.delete();
+		}
+		catch (IOException ex) {
+
+		}
+	}
 }

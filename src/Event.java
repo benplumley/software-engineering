@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.UUID;
 
-public class Event {
+public class Event implements Savable {
 
 	// this class will be instantiated to create a unique event. Recurring events instantiate only
 	// once for the whole series.
@@ -103,5 +103,37 @@ public class Event {
 	 */
 	public Date getEndDate(){
 		return endDate;
+	}
+
+	@Override
+	public void addOrUpdate() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			try (PrintWriter writer = new PrintWriter(file)) {
+				writer.println(this.id.toString());
+				writer.println(this.taskName.toString());
+				writer.println(this.dueDateTime.toString());
+				writer.println(this.taskStatus.toString());
+				writer.println(this.taskNotes.toString());
+			}
+		}
+		catch (IOException ex) {
+
+		}
+	}
+
+	@Override
+	public void delete() {
+		try {
+			File file = new File("/Data/My Tasks/" + this.id.toString());
+			file.delete();
+		}
+		catch (IOException ex) {
+
+		}
 	}
 }
