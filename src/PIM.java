@@ -1,12 +1,14 @@
 public class PIM {
 
-	private EventManager events = new EventManager();
-	private TaskManager tasks = new TaskManager();
-	private ContactManager contacts = new ContactManager();
-	private GUI gui = new GUI();
+	private EventManager events;
+	private TaskManager tasks;
+	private ContactManager contacts;
+	private GUI gui;
 
 	public PIM() {
-
+		this.events = new EventManager();
+		this.tasks = new TaskManager();
+		this.contacts = new ContactManager();
 	}
 
 	public static void main(String[] args) {

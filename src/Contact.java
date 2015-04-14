@@ -137,7 +137,7 @@ public class Contact implements Savable {
 	public void setHomeNumber(String value) {
 		this.homeNumber = value;
 	}
-	
+
 	@Override
 	public void addOrUpdate() {
 		try {
@@ -148,10 +148,37 @@ public class Contact implements Savable {
 
 			try (PrintWriter writer = new PrintWriter(file)) {
 				writer.println(this.id.toString());
-				writer.println(this.taskName.toString());
-				writer.println(this.dueDateTime.toString());
-				writer.println(this.taskStatus.toString());
-				writer.println(this.taskNotes.toString());
+				writer.println(this.firstName);
+				writer.println(this.surname);
+				writer.println(this.mobileNumber);
+				writer.println(this.homeNumber);
+				writer.println(this.workNumber);
+
+				String otherNumberString = "";
+				for (String str : this.otherNumbers) {
+					otherNumberString += str + ",";
+				}
+
+				writer.println(otherNumberString);
+
+				String emailString = "";
+				for (String str : this.emails) {
+					emailString += str + ",";
+				}
+
+				writer.println(emailString);
+
+				String groupString = "";
+				for (String str : this.groups) {
+					groupString += str + ",";
+				}
+
+				writer.println(groupString);
+				writer.println(this.addressLine1);
+				writer.println(this.addressLine2);
+				writer.println(this.city);
+				writer.println(this.postcode);
+				writer.println(this.notes);
 			}
 		}
 		catch (IOException ex) {
