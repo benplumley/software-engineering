@@ -3,8 +3,6 @@ Unique identifier * (same as file name?)
 Name of event *
 Start date *
 End date *
-Start time (not required for all-day events)
-End time (not required for all-day events)
 Location
 Attendees (comma-separated if more than one)
 Category (comma-separated if more than one)
