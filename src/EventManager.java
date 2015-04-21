@@ -24,4 +24,24 @@ public class EventManager extends Manager {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 &&
 		 lines.get(1).length() > 0 && lines.get(2).length() > 0 && lines.get(3).length() > 0; // id, event name, start date and end date is required
 	}
+
+	@Override
+	public void add(Savable savable) {
+		if (savable instanceof Event) {
+			Event event = (Event)savable;
+			this.events.put(event.getId(), event);
+		}
+	}
+
+	@Override
+	public void remove(Savable savable) {
+		if (savable instanceof Event) {
+			Event event = (Event)savable;
+			this.events.remove(event.getId());
+		}
+	}
+
+	public Event getEvent(UUID id) {
+		return this.events.get(id);
+	}
 }

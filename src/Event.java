@@ -36,7 +36,7 @@ public class Event implements Savable {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 		this.location = lines.get(4);
 		this.attendees = lines.get(5);
 		this.category = lines.get(6);
@@ -153,6 +153,7 @@ public class Event implements Savable {
 			File file = new File("/Data/My Events/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
+				PIM.getEventManager().add(this);
 			}
 
 			try (PrintWriter writer = new PrintWriter(file)) {
@@ -175,5 +176,7 @@ public class Event implements Savable {
 	public void delete() {
 		File file = new File("/Data/My Tasks/" + this.id.toString());
 		file.delete();
+
+		PIM.getEventManager().remove(this);
 	}
 }

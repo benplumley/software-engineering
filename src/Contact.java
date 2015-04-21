@@ -146,6 +146,8 @@ public class Contact implements Savable {
 			File file = new File("/Data/My Tasks/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
+
+				PIM.getContactManager().add(this);
 			}
 
 			try (PrintWriter writer = new PrintWriter(file)) {
@@ -192,5 +194,7 @@ public class Contact implements Savable {
 	public void delete() {
 		File file = new File("/Data/My Tasks/" + this.id.toString());
 		file.delete();
+
+		PIM.getContactManager().remove(this);
 	}
 }

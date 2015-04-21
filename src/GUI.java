@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 public class GUI {
 
-	public static void main(String[] args) {
+	public GUI() {
 		initGUI();
 	}
 
-	public static void initGUI() {
+	public void initGUI() {
 		JFrame guiFrame = new JFrame("PIM");
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setSize(142,198);

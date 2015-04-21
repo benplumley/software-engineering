@@ -35,4 +35,7 @@ public abstract class Manager {
 	}
 
 	protected abstract boolean isFileValid(List<String> lines);
+
+	public abstract void add(Savable savable);
+	public abstract void remove(Savable savable);
 }

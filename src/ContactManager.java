@@ -27,4 +27,24 @@ public class ContactManager extends Manager {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and first name is required
 	}
 
+	@Override
+	public void add(Savable savable) {
+		if (savable instanceof Contact) {
+			Contact contact = (Contact)savable;
+			this.contacts.put(contact.getId(), contact);
+		}
+	}
+
+	@Override
+	public void remove(Savable savable) {
+		if (savable instanceof Contact) {
+			Contact contact = (Contact)savable;
+			this.contacts.remove(contact.getId());
+		}
+	}
+
+	public Contact getContact(UUID id) {
+		return this.contacts.get(id);
+	}
+
 }

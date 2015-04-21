@@ -84,6 +84,8 @@ public class Task implements Savable {
 			File file = new File("/Data/My Tasks/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
+
+				PIM.getTaskManager().add(this);
 			}
 
 			try (PrintWriter writer = new PrintWriter(file)) {
@@ -103,5 +105,7 @@ public class Task implements Savable {
 	public void delete() {
 		File file = new File("/Data/My Tasks/" + this.id.toString());
 		file.delete();
+
+		PIM.getTaskManager().remove(this);
 	}
 }

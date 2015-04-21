@@ -26,4 +26,24 @@ public class TaskManager extends Manager {
 	protected boolean isFileValid(List<String> lines) {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and name is required
 	}
+
+	@Override
+	public void add(Savable savable) {
+		if (savable instanceof Task) {
+			Task task = (Task)savable;
+			this.tasks.put(task.getId(), task);
+		}
+	}
+
+	@Override
+	public void remove(Savable savable) {
+		if (savable instanceof Task) {
+			Task task = (Task)savable;
+			this.tasks.remove(task.getId());
+		}
+	}
+
+	public Task getTask(UUID id) {
+		return this.tasks.get(id);
+	}
 }

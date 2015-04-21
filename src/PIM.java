@@ -1,18 +1,27 @@
 public class PIM {
 
-	private EventManager events;
-	private TaskManager tasks;
-	private ContactManager contacts;
-	private GUI gui;
-
-	public PIM() {
-		this.events = new EventManager();
-		this.tasks = new TaskManager();
-		this.contacts = new ContactManager();
-	}
+	private static EventManager events;
+	private static TaskManager tasks;
+	private static ContactManager contacts;
+	private static GUI gui;
 
 	public static void main(String[] args) {
-		PIM thisPIM = new PIM();
+		events = new EventManager();
+		tasks = new TaskManager();
+		contacts = new ContactManager();
+
+		gui = new GUI();
 	}
 
+	public static EventManager getEventManager() {
+		return events;
+	}
+
+	public static TaskManager getTaskManager() {
+		return tasks;
+	}
+
+	public static ContactManager getContactManager() {
+		return contacts;
+	}
 }
