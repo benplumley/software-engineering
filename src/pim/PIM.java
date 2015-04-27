@@ -28,4 +28,8 @@ public class PIM {
 	public static ContactManager getContactManager() {
 		return contacts;
 	}
+
+	public static GUI getGui() {
+		return gui;
+	}
 }

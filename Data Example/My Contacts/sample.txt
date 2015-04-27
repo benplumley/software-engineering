@@ -5,9 +5,8 @@ Surname
 Mobile number
 Home number
 Work number
-Other numbers (comma-separated if more than one)
-Email address (comma-separated if more than one)
-Group (comma-separated if more than one)
+Email address
+Group
 Address line 1
 Address line 2
 City

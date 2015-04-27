@@ -17,14 +17,17 @@ public class Contact implements Savable {
 	private String mobileNumber; // phone numbers must be strings to preserve leading zeroes
 	private String homeNumber;
 	private String workNumber;
-	private List<String> otherNumbers;
-	private List<String> emails;
-	private List<String> groups; // todo this
+	private String email;
+	private String group;
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
 	private String postcode;
 	private String notes;
+
+	public Contact() {
+		this.id = UUID.randomUUID();
+	}
 
 	/**
 	 * Constructs the Contact class from the lines provided.
@@ -38,9 +41,8 @@ public class Contact implements Savable {
 		this.mobileNumber = lines.get(3);
 		this.homeNumber = lines.get(4);
 		this.workNumber = lines.get(5);
-		this.otherNumbers = Arrays.asList(lines.get(6).split(","));
-		this.emails = Arrays.asList(lines.get(7).split(","));
-		this.groups = Arrays.asList(lines.get(8).split(","));
+		this.email = lines.get(7);
+		this.group = lines.get(8);
 		this.addressLine1 = lines.get(9);
 		this.addressLine2 = lines.get(10);
 		this.city = lines.get(11);
@@ -55,26 +57,24 @@ public class Contact implements Savable {
 	 * @param mobileNumber Mobile Number for the contact
 	 * @param homeNumber Home Number for the contact
 	 * @param workNumber Work Number for the contact
-	 * @param otherNumbers Any other numbers for the contact
-	 * @param emails Emails for the contact
-	 * @param groups Groups for the contact
+	 * @param email Email for the contact
+	 * @param group Group for the contact
 	 * @param addressLine1 Address Line 1 for the contact
 	 * @param addressLine2 Address Line 2 for the contact
 	 * @param city City for the contact
 	 * @param postcode Postcode for the contact
 	 * @param notes Notes for the contact
 	 */
-	public Contact(String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
-					List<String> emails, List<String> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
+	public Contact(String firstName, String surname, String mobileNumber, String homeNumber, String workNumber,
+					String email, String group, String addressLine1, String addressLine2, String city, String postcode, String notes) {
 		this.id = UUID.randomUUID();
 		this.firstName = firstName;
 		this.surname = surname;
 		this.mobileNumber = mobileNumber;
 		this.homeNumber = homeNumber;
 		this.workNumber = workNumber;
-		this.otherNumbers = otherNumbers;
-		this.emails = emails;
-		this.groups = groups; // todo this
+		this.email = email;
+		this.group = group;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.city = city;
@@ -163,6 +163,70 @@ public class Contact implements Savable {
 		this.homeNumber = value;
 	}
 
+	public String getWorkNumber() {
+		return this.workNumber;
+	}
+
+	public void setWorkNumber(String workNumber) {
+		this.workNumber = workNumber;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getGroup() {
+		return this.group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public String getAddressLine1() {
+		return this.addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return this.addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public String getCity() {
+		return this.city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostcode() {
+		return this.postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getNotes() {
+		return this.notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 	/**
 	 * Saves all contact data to file
 	 */
@@ -182,28 +246,8 @@ public class Contact implements Savable {
 				writer.println(this.surname);
 				writer.println(this.mobileNumber);
 				writer.println(this.homeNumber);
-				writer.println(this.workNumber);
-
-				String otherNumberString = "";
-				for (String str : this.otherNumbers) {
-					otherNumberString += str + ",";
-				}
-
-				writer.println(otherNumberString);
-
-				String emailString = "";
-				for (String str : this.emails) {
-					emailString += str + ",";
-				}
-
-				writer.println(emailString);
-
-				String groupString = "";
-				for (String str : this.groups) {
-					groupString += str + ",";
-				}
-
-				writer.println(groupString);
+				writer.println(this.email);
+				writer.println(this.group);
 				writer.println(this.addressLine1);
 				writer.println(this.addressLine2);
 				writer.println(this.city);
@@ -225,5 +269,10 @@ public class Contact implements Savable {
 		file.delete();
 
 		PIM.getContactManager().remove(this);
+	}
+
+	@Override
+	public String toString() {
+		return getFullName();
 	}
 }

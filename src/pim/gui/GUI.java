@@ -1,5 +1,8 @@
 package pim.gui;
 
+import pim.Contact;
+import pim.gui.contacts.ContactsPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,11 +10,15 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
 
 	private JPanel homePanel;
-	private JPanel taskPanel;
-	private JPanel contactsPanel;
+	private TaskPanel taskPanel;
+	private ContactsPanel contactsPanel;
 
 	public GUI() {
 		initGUI();
+	}
+
+	public ContactsPanel getContactsPanel() {
+		return this.contactsPanel;
 	}
 
 	public void initGUI() {
@@ -55,13 +62,13 @@ public class GUI extends JFrame implements ActionListener {
 		repaint();
 	}
 
-	public void displayContacts() {
+	private void displayContacts() {
 		this.homePanel.setVisible(false);
 		this.taskPanel.setVisible(false);
 		this.contactsPanel.setVisible(true);
 	}
 
-	public void displayTasks() {
+	private void displayTasks() {
 		this.homePanel.setVisible(false);
 		this.contactsPanel.setVisible(false);
 		this.taskPanel.setVisible(true);
