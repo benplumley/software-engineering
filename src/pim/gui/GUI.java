@@ -1,7 +1,5 @@
 package pim.gui;
 
-import pim.gui.TaskPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +8,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private JPanel homePanel;
 	private JPanel taskPanel;
+	private JPanel contactsPanel;
 
 	public GUI() {
 		initGUI();
@@ -19,35 +18,66 @@ public class GUI extends JFrame implements ActionListener {
 		setTitle("PIM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(200, 280);
-		setVisible(true);
-		setResizable(false);
+		setResizable(true);
 
 		this.homePanel = new JPanel();
-		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.PAGE_AXIS));
+		this.homePanel.setLayout(new BoxLayout(this.homePanel, BoxLayout.PAGE_AXIS));
 		JButton contactButton = new JButton("Contacts");
-		JButton taskButton = new JButton("Tasks");
-		this.homePanel.add(contactButton);
 		contactButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.homePanel.add(taskButton);
+		contactButton.setActionCommand("CONTACTS");
+		contactButton.addActionListener(this);
+
+		JButton taskButton = new JButton("Tasks");
 		taskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(homePanel);
-		homePanel.setVisible(true);
-		this.taskPanel = new TaskPanel();
-		add(taskPanel);
-		this.taskPanel.setVisible(false);
+		taskButton.setActionCommand("TASKS");
 		taskButton.addActionListener(this);
+
+		this.homePanel.add(taskButton);
+		this.homePanel.add(contactButton);
+
+		this.taskPanel = new TaskPanel();
+		this.contactsPanel = new ContactsPanel();
+		add(taskPanel);
+		add(contactsPanel);
+		add(homePanel);
+
+		this.taskPanel.setVisible(false);
+		this.contactsPanel.setVisible(false);
+		this.homePanel.setVisible(true);
+		setVisible(true);
 	}
 
 	public void displayHome() {
-		this.homePanel.setVisible(true);
 		this.taskPanel.setVisible(false);
+		this.contactsPanel.setVisible(false);
+		this.homePanel.setVisible(true);
+
 		repaint();
+	}
+
+	public void displayContacts() {
+		this.homePanel.setVisible(false);
+		this.taskPanel.setVisible(false);
+		this.contactsPanel.setVisible(true);
+	}
+
+	public void displayTasks() {
+		this.homePanel.setVisible(false);
+		this.contactsPanel.setVisible(false);
+		this.taskPanel.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.homePanel.setVisible(false);
-		this.taskPanel.setVisible(true);
+		switch (e.getActionCommand()) {
+			case "CONTACTS":
+				displayContacts();
+				break;
+
+			case "TASKS":
+				displayTasks();
+				break;
+		}
 		repaint();
 	}
 }

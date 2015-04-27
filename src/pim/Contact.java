@@ -90,6 +90,15 @@ public class Contact implements Savable {
 		return this.id;
 	}
 
+
+	/**
+	 * Gets the contact's full name
+	 * @return Full name of the contact
+	 */
+	public String getFullName() {
+		return this.firstName + " " + this.surname;
+	}
+
 	/**
 	 * Gets the first name
 	 * @return String the contact's first name
