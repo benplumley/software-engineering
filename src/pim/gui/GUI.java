@@ -1,6 +1,7 @@
 package pim.gui;
 
 import pim.Contact;
+import pim.QOTD;
 import pim.gui.contacts.ContactsPanel;
 
 import javax.swing.*;
@@ -39,8 +40,12 @@ public class GUI extends JFrame implements ActionListener {
 		taskButton.setActionCommand("TASKS");
 		taskButton.addActionListener(this);
 
+		JLabel quoteTodayLabel = new JLabel("<html><div style='text-align: center;'>" + QOTD.getTodaysQuote() + "</div></html>");
+		quoteTodayLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 		this.homePanel.add(taskButton);
 		this.homePanel.add(contactButton);
+		this.homePanel.add(quoteTodayLabel);
 
 		this.taskPanel = new TaskPanel();
 		this.contactsPanel = new ContactsPanel();

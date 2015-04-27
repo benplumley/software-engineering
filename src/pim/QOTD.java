@@ -9,16 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class QOTD {
-
-	/**
-	 * quotes should be read from Data/Quotes/quotes.txt and written to Data/Quotes/recent.txt
-	 */
-
-	public QOTD() {
-
-	}
-
-	private String loadQuoteFromFile() {
+	public static String getTodaysQuote() {
 		try {
 			File quoteFile = new File("Data/Quotes/quotes.txt");
 			List<String> quotes = Files.readAllLines(quoteFile.toPath(), Charset.defaultCharset());
