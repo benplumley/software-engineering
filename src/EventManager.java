@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -9,13 +12,26 @@ public class EventManager extends Manager {
 	private static final int SAVE_FILE_LENGTH = 10;
 
 	public EventManager() {
-		events = new HashMap<>();
+		this.events = new HashMap<>();
+
+		generateDirectories();
 		loadEvents();
 	}
 
 	protected void loadEvents() {
-		for (List<String> lines : loadFiles("/Data/My Events")) {
+		for (List<String> lines : loadFiles("Data/My Events")) {
 			Event event = new Event(lines.get(0), lines);
+
+			this.events.put(event.getId(), event);
+		}
+	}
+
+	@Override
+	public void generateDirectories() {
+		File file = new File("Data/My Events/");
+
+		if (!file.exists()) {
+			file.mkdirs();
 		}
 	}
 

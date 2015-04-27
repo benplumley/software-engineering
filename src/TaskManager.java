@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,14 +12,24 @@ public class TaskManager extends Manager {
 	public TaskManager() {
 		this.tasks = new HashMap<>();
 
+		generateDirectories();
 		loadTasks();
 	}
 
 	protected void loadTasks() {
-		for (List<String> lines : loadFiles("/Data/My Tasks")) {
+		for (List<String> lines : loadFiles("Data/My Tasks")) {
 			Task task = new Task(lines.get(0), lines);
 
-			this.tasks.put(task.getId(), task); //getID undefined for type task
+			this.tasks.put(task.getId(), task);
+		}
+	}
+
+	@Override
+	public void generateDirectories() {
+		File file = new File("Data/My Tasks/");
+
+		if (!file.exists()) {
+			file.mkdirs();
 		}
 	}
 

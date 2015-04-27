@@ -45,7 +45,6 @@ public class Event implements Savable {
 
 	/**
 	 * Construct new event with specified id.
-	 * @param uid UUID to set as the id.
 	 */
 	public Event(String eventName,String startDate,String endDate,String location,String attendees,String category,String notes) {
 		format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
@@ -67,8 +66,17 @@ public class Event implements Savable {
 	//Accessors and mutators.
 
 	/**
+	 * Gets the unique ID
+	 * @return Unique ID
+	 */
+	public UUID getId()
+	{
+		return this.id;
+	}
+
+	/**
 	 * Set the location.
-	 * @param locationSet Location string to set.
+	 * @param attendeeSet Location string to set.
 	 */
 	public void setAttendees(String attendeeSet){
 		attendees = attendeeSet;
@@ -134,7 +142,7 @@ public class Event implements Savable {
 	}
 	/**
 	 * Set the end date.
-	 * @param setStartDate start date to set.
+	 * @param setEndDate end date to set.
 	 */
 	public void setEndDate(Date setEndDate){
 		endDate = setEndDate;

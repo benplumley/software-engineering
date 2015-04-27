@@ -34,6 +34,7 @@ public abstract class Manager {
 		return files;
 	}
 
+	public abstract void generateDirectories();
 	protected abstract boolean isFileValid(List<String> lines);
 
 	public abstract void add(Savable savable);
