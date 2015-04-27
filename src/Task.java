@@ -78,10 +78,13 @@ public class Task implements Savable {
 		taskNotes = newNotes;
 	}
 
+	/**
+	 * Saves all task data to file
+	 */
 	@Override
 	public void addOrUpdate() {
 		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
+			File file = new File("Data/My Tasks/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
 
@@ -101,9 +104,12 @@ public class Task implements Savable {
 		}
 	}
 
+	/**
+	 * Deletes all task data from file
+	 */
 	@Override
 	public void delete() {
-		File file = new File("/Data/My Tasks/" + this.id.toString());
+		File file = new File("Data/My Tasks/" + this.id.toString());
 		file.delete();
 
 		PIM.getTaskManager().remove(this);

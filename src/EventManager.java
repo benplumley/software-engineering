@@ -41,6 +41,12 @@ public class EventManager extends Manager {
 		 lines.get(1).length() > 0 && lines.get(2).length() > 0 && lines.get(3).length() > 0; // id, event name, start date and end date is required
 	}
 
+	/**
+	 * Adds an instance of Event to the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Event to add
+	 */
 	@Override
 	public void add(Savable savable) {
 		if (savable instanceof Event) {
@@ -49,6 +55,12 @@ public class EventManager extends Manager {
 		}
 	}
 
+	/**
+	 * Removes an instance of Event to the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Event to remove
+	 */
 	@Override
 	public void remove(Savable savable) {
 		if (savable instanceof Event) {

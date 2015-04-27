@@ -38,6 +38,12 @@ public class ContactManager extends Manager {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and first name is required
 	}
 
+	/**
+	 * Adds an instance of Contact to the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Contact to add
+	 */
 	@Override
 	public void add(Savable savable) {
 		if (savable instanceof Contact) {
@@ -46,6 +52,12 @@ public class ContactManager extends Manager {
 		}
 	}
 
+	/**
+	 * Removes an instance of Contact from the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Contact to remove
+	 */
 	@Override
 	public void remove(Savable savable) {
 		if (savable instanceof Contact) {

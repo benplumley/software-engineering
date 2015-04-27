@@ -155,10 +155,13 @@ public class Event implements Savable {
 		return endDate;
 	}
 
+	/**
+	 * Saves all event data to file
+	 */
 	@Override
 	public void addOrUpdate() {
 		try {
-			File file = new File("/Data/My Events/" + this.id.toString());
+			File file = new File("Data/My Events/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
 				PIM.getEventManager().add(this);
@@ -180,9 +183,12 @@ public class Event implements Savable {
 		}
 	}
 
+	/**
+	 * Deletes all event data from file
+	 */
 	@Override
 	public void delete() {
-		File file = new File("/Data/My Tasks/" + this.id.toString());
+		File file = new File("Data/My Events/" + this.id.toString());
 		file.delete();
 
 		PIM.getEventManager().remove(this);

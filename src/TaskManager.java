@@ -38,6 +38,12 @@ public class TaskManager extends Manager {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and name is required
 	}
 
+	/**
+	 * Adds an instance of Task to the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Task to add
+	 */
 	@Override
 	public void add(Savable savable) {
 		if (savable instanceof Task) {
@@ -46,6 +52,12 @@ public class TaskManager extends Manager {
 		}
 	}
 
+	/**
+	 * Removes an instance of Task from the map.
+	 * This should not be directly called.
+	 *
+	 * @param savable Task to remove
+	 */
 	@Override
 	public void remove(Savable savable) {
 		if (savable instanceof Task) {

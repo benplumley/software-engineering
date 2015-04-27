@@ -47,8 +47,20 @@ public class Contact implements Savable {
 	}
 
 	/**
-	 * Constructs the Contact class with a given unique ID
-	 * @param uniqueID ID of the contact
+	 * Constructs the Contact class with given information
+	 * @param firstName First name of the contact
+	 * @param surname Surname of the contact
+	 * @param mobileNumber Mobile Number for the contact
+	 * @param homeNumber Home Number for the contact
+	 * @param workNumber Work Number for the contact
+	 * @param otherNumbers Any other numbers for the contact
+	 * @param emails Emails for the contact
+	 * @param groups Groups for the contact
+	 * @param addressLine1 Address Line 1 for the contact
+	 * @param addressLine2 Address Line 2 for the contact
+	 * @param city City for the contact
+	 * @param postcode Postcode for the contact
+	 * @param notes Notes for the contact
 	 */
 	public Contact(String firstName, String surname, String mobileNumber, String homeNumber, String workNumber, List<String> otherNumbers,
 					List<String> emails, List<String> groups, String addressLine1, String addressLine2, String city, String postcode, String notes) {
@@ -140,10 +152,13 @@ public class Contact implements Savable {
 		this.homeNumber = value;
 	}
 
+	/**
+	 * Saves all contact data to file
+	 */
 	@Override
 	public void addOrUpdate() {
 		try {
-			File file = new File("/Data/My Tasks/" + this.id.toString());
+			File file = new File("Data/My Contacts/" + this.id.toString());
 			if (!file.exists()) {
 				file.createNewFile();
 
@@ -190,9 +205,12 @@ public class Contact implements Savable {
 		}
 	}
 
+	/**
+	 * Deletes the contact data from file
+	 */
 	@Override
 	public void delete() {
-		File file = new File("/Data/My Tasks/" + this.id.toString());
+		File file = new File("Data/My Contacts/" + this.id.toString());
 		file.delete();
 
 		PIM.getContactManager().remove(this);

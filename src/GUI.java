@@ -9,8 +9,9 @@ public class GUI {
 	public void initGUI() {
 		JFrame guiFrame = new JFrame("PIM");
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		guiFrame.setSize(142,198);
+		guiFrame.setSize(128,180);
 		guiFrame.setVisible(true);
+		guiFrame.setResizable(false);
 		JPanel homePanel = new JPanel();
 		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.PAGE_AXIS));
 		JButton contactButton = new JButton("Contacts");
