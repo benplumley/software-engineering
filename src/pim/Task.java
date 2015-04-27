@@ -130,4 +130,10 @@ public class Task implements Savable {
 
 		PIM.getTaskManager().remove(this);
 	}
+
+	//Overrides the toString method. Used in the GUI list.
+	@Override
+	public String toString() {
+		return taskName;
+	}
 }

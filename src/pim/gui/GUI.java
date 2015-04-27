@@ -35,8 +35,13 @@ public class GUI extends JFrame implements ActionListener {
 		this.taskPanel = new TaskPanel();
 		add(taskPanel);
 		this.taskPanel.setVisible(false);
-		setVisible(true);
 		taskButton.addActionListener(this);
+	}
+
+	public void displayHome() {
+		this.homePanel.setVisible(true);
+		this.taskPanel.setVisible(false);
+		repaint();
 	}
 
 	@Override
