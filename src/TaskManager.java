@@ -1,17 +1,18 @@
 import java.io.File;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
 
 public class TaskManager extends Manager {
-
+	private final List<Task> taskList;
 	private final Map<UUID, Task> tasks;
 	private static final int SAVE_FILE_LENGTH = 7;
 
 	public TaskManager() {
 		this.tasks = new HashMap<>();
-
+		this.taskList = new ArrayList<Task>();
 		generateDirectories();
 		loadTasks();
 	}
@@ -19,7 +20,7 @@ public class TaskManager extends Manager {
 	protected void loadTasks() {
 		for (List<String> lines : loadFiles("Data/My Tasks")) {
 			Task task = new Task(lines.get(0), lines);
-
+			this.taskList.add(task);
 			this.tasks.put(task.getId(), task);
 		}
 	}
@@ -68,5 +69,9 @@ public class TaskManager extends Manager {
 
 	public Task getTask(UUID id) {
 		return this.tasks.get(id);
+	}
+
+	public List<Task> getTaskList() {
+		return this.taskList;
 	}
 }

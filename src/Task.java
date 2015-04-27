@@ -54,8 +54,21 @@ public class Task implements Savable {
 		return dueDateTime;
 	}
 
+	public String getDueDateTimeString() {
+		return dateFormat.format(dueDateTime);
+	}
+
 	public boolean getTaskStatus() {
 		return taskStatus;
+	}
+
+	public String getTaskStatusString() {
+		if(taskStatus == true) {
+			return "Done";
+		}
+		else {
+			return "Incomplete";
+		}
 	}
 
 	public String getTaskNotes() {
