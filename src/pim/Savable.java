@@ -1,3 +1,5 @@
+package pim;
+
 public interface Savable {
     void addOrUpdate();
 

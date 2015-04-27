@@ -1,9 +1,11 @@
+package pim;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.UUID;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class Contact implements Savable {
 

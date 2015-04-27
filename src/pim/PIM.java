@@ -1,3 +1,7 @@
+package pim;
+
+import pim.gui.GUI;
+
 public class PIM {
 
 	private static EventManager events;

@@ -1,10 +1,12 @@
-import java.io.*;
-import java.util.Scanner;
-import java.util.List;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+package pim;
+
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class QOTD {
 

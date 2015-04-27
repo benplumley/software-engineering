@@ -1,8 +1,11 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+package pim;
+
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Manager {
 

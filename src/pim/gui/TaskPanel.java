@@ -1,10 +1,13 @@
-import java.util.List;
-import java.util.ArrayList;
+package pim.gui;
+
+import pim.PIM;
+import pim.Task;
+
 import javax.swing.*;
 import java.awt.*;
 public class TaskPanel extends JPanel {
-  private static List<Task> taskList;
-  private static JTextArea myTasks;
+  private JTextArea myTasks;
+
   //Creates a TaskPanel object
   public TaskPanel(){
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -32,9 +35,8 @@ public class TaskPanel extends JPanel {
 
   //Gets saved tasks and displays them on myTasks text area
   public void initTasks() {
-    taskList = PIM.getTaskManager().getTaskList();
     String newLn = System.getProperty("line.separator");
-    for(Task currentTask : taskList) {
+    for(Task currentTask : PIM.getTaskManager().getTasks()) {
       myTasks.append("Name: " + currentTask.getTaskName() + newLn );
       myTasks.append("Due Date/Time: " + currentTask.getDueDateTimeString() + newLn );
       myTasks.append("Status: " + currentTask.getTaskStatusString() + newLn );

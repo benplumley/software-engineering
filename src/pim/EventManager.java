@@ -1,10 +1,7 @@
+package pim;
+
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.HashMap;
+import java.util.*;
 
 public class EventManager extends Manager {
 
@@ -71,5 +68,10 @@ public class EventManager extends Manager {
 
 	public Event getEvent(UUID id) {
 		return this.events.get(id);
+	}
+
+	public Collection<Event> getEvents()
+	{
+		return this.events.values();
 	}
 }

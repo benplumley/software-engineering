@@ -1,8 +1,7 @@
+package pim;
+
 import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.HashMap;
+import java.util.*;
 
 public class ContactManager extends Manager {
 
@@ -70,4 +69,7 @@ public class ContactManager extends Manager {
 		return this.contacts.get(id);
 	}
 
+	public Collection<Contact> getContacts() {
+		return this.contacts.values();
+	}
 }
