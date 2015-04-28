@@ -32,4 +32,19 @@ public class PIM {
 	public static GUI getGui() {
 		return gui;
 	}
+
+	public static boolean checkIsNumeric(String str) {
+		try {
+			int i = Integer.parseInt(str);
+
+			if (i < 0) {
+				return false;
+			}
+
+			return true;
+		}
+		catch (Exception ex) {
+			return false;
+		}
+	}
 }
