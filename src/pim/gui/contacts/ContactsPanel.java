@@ -14,7 +14,6 @@ public class ContactsPanel extends JPanel implements ActionListener
 {
 	private JPanel listPanel;
 	private AddContactPanel addPanel;
-	private JPanel viewPanel;
 
 	private JList contactsList;
 
@@ -70,28 +69,6 @@ public class ContactsPanel extends JPanel implements ActionListener
 		this.listPanel.setVisible(false);
 	}
 
-	private void initViewPanel(UUID id) {
-		this.viewPanel = new JPanel();
-		JButton backButton = new JButton("Back");
-		backButton.setActionCommand("BACK");
-		backButton.addActionListener(this);
-
-		JButton editButton = new JButton("Edit");
-		editButton.setActionCommand("DELETE " + id.toString());
-		editButton.addActionListener(this);
-
-		JButton deleteButton = new JButton("Delete");
-		deleteButton.setActionCommand("DELETE " + id.toString());
-		deleteButton.addActionListener(this);
-
-		this.viewPanel.add(backButton);
-		this.viewPanel.add(editButton);
-		this.viewPanel.add(deleteButton);
-
-		add(this.viewPanel);
-		this.viewPanel.setVisible(false);
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
@@ -144,11 +121,6 @@ public class ContactsPanel extends JPanel implements ActionListener
 	public void showListPanel() {
 		this.listPanel.setVisible(true);
 
-		if (this.viewPanel != null) {
-			this.viewPanel.setVisible(false);
-			remove(this.viewPanel);
-			this.viewPanel = null;
-		}
 		if (this.addPanel != null) {
 			this.addPanel.setVisible(false);
 			remove(this.addPanel);
@@ -165,23 +137,20 @@ public class ContactsPanel extends JPanel implements ActionListener
 	}
 
 	public void showEditPanel(UUID id) {
-		this.addPanel = new AddContactPanel(PIM.getContactManager().getContact(id));
-		this.viewPanel.setVisible(false);
-
-		add(this.addPanel);
-		this.addPanel.setVisible(true);
+		this.addPanel.unlockElements();
 	}
 
 	public void showViewPanel(UUID id) {
-		initViewPanel(id);
-
-		this.viewPanel.setVisible(true);
-		this.listPanel.setVisible(false);
-
 		if (this.addPanel != null) {
-			this.addPanel.setVisible(false);
-			remove(this.addPanel);
-			this.addPanel = null;
+			this.addPanel.lockElements();
+		}
+		else {
+			this.addPanel = new AddContactPanel(PIM.getContactManager().getContact(id));
+			this.addPanel.lockElements();
+			this.listPanel.setVisible(false);
+			add(addPanel);
+			this.addPanel.setVisible(true);
+			this.listPanel.setVisible(false);
 		}
 	}
 }

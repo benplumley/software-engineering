@@ -25,6 +25,10 @@ public class AddContactPanel extends JPanel implements ActionListener
 	private JTextField postcodeField;
 	private JTextField notesField;
 
+	private JButton addButton;
+	private JButton editButton;
+	private JButton cancelButton;
+
 	public AddContactPanel() {
 		super(new GridLayout(13, 1));
 		this.contact = new Contact();
@@ -69,7 +73,7 @@ public class AddContactPanel extends JPanel implements ActionListener
 		JLabel firstNameLabel = new JLabel("First Name");
 		JLabel surnameLabel = new JLabel("Surname");
 		JLabel mobileLabel = new JLabel("Mobile Number");
-		JLabel homeNumerLabel = new JLabel("Home Number");
+		JLabel homeNumberLabel = new JLabel("Home Number");
 		JLabel workNumberLabel = new JLabel("Work Number");
 		JLabel emailLabel = new JLabel("Email");
 		JLabel groupLabel = new JLabel("Group");
@@ -79,13 +83,17 @@ public class AddContactPanel extends JPanel implements ActionListener
 		JLabel postcodeLabel = new JLabel("Postcode");
 		JLabel notesLabel = new JLabel("Notes");
 
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(this);
-		addButton.setActionCommand("ADD");
+		this.addButton = new JButton("Add");
+		this.addButton.addActionListener(this);
+		this.addButton.setActionCommand("ADD");
 
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(this);
-		cancelButton.setActionCommand("CANCEL");
+		this.cancelButton = new JButton("Cancel");
+		this.cancelButton.addActionListener(this);
+		this.cancelButton.setActionCommand("CANCEL");
+
+		this.editButton = new JButton("Edit");
+		this.editButton.addActionListener(this);
+		this.editButton.setActionCommand("EDIT");
 
 		add(firstNameLabel);
 		add(firstNameField);
@@ -93,7 +101,7 @@ public class AddContactPanel extends JPanel implements ActionListener
 		add(surnameField);
 		add(mobileLabel);
 		add(mobileField);
-		add(homeNumerLabel);
+		add(homeNumberLabel);
 		add(homeNumberField);
 		add(workNumberLabel);
 		add(workNumberField);
@@ -113,8 +121,9 @@ public class AddContactPanel extends JPanel implements ActionListener
 		add(notesField);
 
 		JPanel panel = new JPanel(new GridLayout(1, 2));
-		panel.add(addButton);
-		panel.add(cancelButton);
+		panel.add(this.addButton);
+		panel.add(this.cancelButton);
+		panel.add(this.editButton);
 		add(panel);
 	}
 
@@ -167,5 +176,43 @@ public class AddContactPanel extends JPanel implements ActionListener
 				}
 				break;
 		}
+	}
+
+	public void lockElements() {
+		this.firstNameField.setEnabled(false);
+		this.surnameField.setEnabled(false);
+		this.mobileField.setEnabled(false);
+		this.homeNumberField.setEnabled(false);
+		this.workNumberField.setEnabled(false);
+		this.emailField.setEnabled(false);
+		this.groupField.setEnabled(false);
+		this.addressLine1Field.setEnabled(false);
+		this.addressLine2Field.setEnabled(false);
+		this.cityField.setEnabled(false);
+		this.postcodeField.setEnabled(false);
+		this.notesField.setEnabled(false);
+
+		this.addButton.setVisible(false);
+		this.cancelButton.setVisible(false);
+		this.editButton.setVisible(true);
+	}
+
+	public void unlockElements() {
+		this.firstNameField.setEnabled(true);
+		this.surnameField.setEnabled(true);
+		this.mobileField.setEnabled(true);
+		this.homeNumberField.setEnabled(true);
+		this.workNumberField.setEnabled(true);
+		this.emailField.setEnabled(true);
+		this.groupField.setEnabled(true);
+		this.addressLine1Field.setEnabled(true);
+		this.addressLine2Field.setEnabled(true);
+		this.cityField.setEnabled(true);
+		this.postcodeField.setEnabled(true);
+		this.notesField.setEnabled(true);
+
+		this.addButton.setVisible(true);
+		this.cancelButton.setVisible(true);
+		this.editButton.setVisible(false);
 	}
 }

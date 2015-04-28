@@ -1,6 +1,5 @@
 package pim.gui;
 
-import pim.Contact;
 import pim.QOTD;
 import pim.gui.contacts.ContactsPanel;
 
