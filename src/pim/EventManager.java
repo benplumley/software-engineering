@@ -6,7 +6,7 @@ import java.util.*;
 public class EventManager extends Manager {
 
 	private Map<UUID, Event> events;
-	private static final int SAVE_FILE_LENGTH = 10;
+	private static final int SAVE_FILE_LENGTH = 7;
 
 	public EventManager() {
 		this.events = new HashMap<>();

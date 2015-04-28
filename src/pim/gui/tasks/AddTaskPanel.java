@@ -87,7 +87,7 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.task = task;
 
 		this.nameField.setText(task.getTaskName());
-		this.dueDateField.setText(task.getDueDateTime());
+		this.dueDateField.setText(task.getDueDateTimeString());
 		this.statusField.setText(task.getTaskStatusString());
   }
 
@@ -97,8 +97,8 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		switch (e.getActionCommand()) {
 			case "ADD":
 				this.task.setTaskName(this.nameField.getText());
-				this.task.setdueDateTimeString(this.dueDateField.getText());
-				this.task.setNotes(this.notesField.getText());
+				this.task.setDueDateTime(this.dueDateField.getText());
+				this.task.setTaskNotes(this.notesField.getText());
 
 				this.task.addOrUpdate();
 				PIM.getGui().getTasksPanel().updateTaskList();

@@ -3,6 +3,7 @@ package pim.gui;
 import pim.QOTD;
 import pim.gui.contacts.ContactsPanel;
 import pim.gui.tasks.TaskPanel;
+import pim.gui.events.EventsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel homePanel;
 	private TaskPanel taskPanel;
 	private ContactsPanel contactsPanel;
+	private EventsPanel eventsPanel;
 
 	public GUI() {
 		initGUI();
@@ -24,6 +26,10 @@ public class GUI extends JFrame implements ActionListener {
 
 	public TaskPanel getTasksPanel() {
 		return this.taskPanel;
+	}
+
+	public EventsPanel getEventsPanel() {
+		return this.eventsPanel;
 	}
 
 	public void initGUI() {
@@ -45,6 +51,11 @@ public class GUI extends JFrame implements ActionListener {
 		taskButton.setActionCommand("TASKS");
 		taskButton.addActionListener(this);
 
+		JButton eventButton = new JButton("Events");
+		eventButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		eventButton.setActionCommand("EVENTS");
+		eventButton.addActionListener(this);
+
 		JLabel quoteTodayLabel = new JLabel("<html><div style='text-align: center;'>" + QOTD.getTodaysQuote() + "</div></html>");
 		quoteTodayLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -54,9 +65,11 @@ public class GUI extends JFrame implements ActionListener {
 
 		this.taskPanel = new TaskPanel();
 		this.contactsPanel = new ContactsPanel();
-		add(taskPanel, "TASKS");
-		add(contactsPanel, "CONTACTS");
-		add(homePanel, "HOME");
+		this.eventsPanel = new EventsPanel();
+		add(this.taskPanel, "TASKS");
+		add(this.contactsPanel, "CONTACTS");
+		add(this.eventsPanel, "EVENTS");
+		add(this.homePanel, "HOME");
 
 		this.taskPanel.setVisible(false);
 		this.contactsPanel.setVisible(false);
@@ -78,6 +91,10 @@ public class GUI extends JFrame implements ActionListener {
 		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "TASKS");
 	}
 
+	private void displayEvents() {
+		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "EVENTS");
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
@@ -87,6 +104,10 @@ public class GUI extends JFrame implements ActionListener {
 
 			case "TASKS":
 				displayTasks();
+				break;
+
+			case "EVENTS":
+				displayEvents();
 				break;
 		}
 		repaint();

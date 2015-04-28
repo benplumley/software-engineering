@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Task implements Savable {
-	private final DateFormat dateFormat;
+	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);;
 
 	private final UUID id;
 	private String taskName;
@@ -20,10 +20,7 @@ public class Task implements Savable {
 	private boolean taskStatus;
 	private String taskNotes;
 
-	// this class will be instantiated to create a unique coursework/homework task.
-
 	public Task(String fileName, List<String> lines) {
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
 		this.id = UUID.fromString(fileName);
 		this.taskName = lines.get(1);
 		try {
@@ -36,13 +33,8 @@ public class Task implements Savable {
 		this.taskNotes = lines.get(4);
 	}
 
-	public Task(UUID uniqueID, String name, Date due,String notes) {
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);
-		id = uniqueID;
-		taskName = name;
-		dueDateTime = due;
-		taskStatus = false;
-		taskNotes = notes;
+	public Task() {
+		this.id = UUID.randomUUID();
 	}
 
 	public UUID getId() {
@@ -82,8 +74,15 @@ public class Task implements Savable {
 		taskName = newName;
 	}
 
-	public void setDueDateTime(Date newDueDate) {
-		dueDateTime = newDueDate;
+	public void setDueDateTime(String newDueDate) {
+		try
+		{
+			dueDateTime = dateFormat.parse(newDueDate);
+		}
+		catch (ParseException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void setTaskStatus(boolean newStatus) {

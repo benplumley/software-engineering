@@ -51,38 +51,6 @@ public class Contact implements Savable {
 	}
 
 	/**
-	 * Constructs the Contact class with given information
-	 * @param firstName First name of the contact
-	 * @param surname Surname of the contact
-	 * @param mobileNumber Mobile Number for the contact
-	 * @param homeNumber Home Number for the contact
-	 * @param workNumber Work Number for the contact
-	 * @param email Email for the contact
-	 * @param group Group for the contact
-	 * @param addressLine1 Address Line 1 for the contact
-	 * @param addressLine2 Address Line 2 for the contact
-	 * @param city City for the contact
-	 * @param postcode Postcode for the contact
-	 * @param notes Notes for the contact
-	 */
-	public Contact(String firstName, String surname, String mobileNumber, String homeNumber, String workNumber,
-					String email, String group, String addressLine1, String addressLine2, String city, String postcode, String notes) {
-		this.id = UUID.randomUUID();
-		this.firstName = firstName;
-		this.surname = surname;
-		this.mobileNumber = mobileNumber;
-		this.homeNumber = homeNumber;
-		this.workNumber = workNumber;
-		this.email = email;
-		this.group = group;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.city = city;
-		this.postcode = postcode;
-		this.notes = notes;
-	}
-
-	/**
 	 * Gets the unique ID
 	 * @return UUID The unique ID linked to the contact
 	 */
