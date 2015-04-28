@@ -6,6 +6,7 @@ import pim.PIM;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.UUID;
@@ -31,19 +32,22 @@ public class ContactsPanel extends JPanel implements ActionListener
 	}
 
 	private void initListPanel() {
-		this.listPanel = new JPanel();
+		this.listPanel = new JPanel(new GridLayout(2, 0));
 		this.contactsList = new JList(getListModel());
 		this.contactsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		this.addButton = new JButton("Add");
 		this.addButton.addActionListener(this);
 		this.addButton.setActionCommand("ADD");
-		this.addButton.setEnabled(false);
 
 		this.viewButton = new JButton("View");
 		this.viewButton.addActionListener(this);
 		this.viewButton.setActionCommand("VIEW");
 		this.viewButton.setEnabled(false);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(this.addButton);
+		buttonPanel.add(this.viewButton);
 
 		this.contactsList.addListSelectionListener(new ListSelectionListener()
 		{
@@ -52,19 +56,16 @@ public class ContactsPanel extends JPanel implements ActionListener
 			{
 				if (contactsList.getSelectedIndex() == -1)
 				{
-					addButton.setEnabled(false);
 					viewButton.setEnabled(false);
 				}
 				else
 				{
-					addButton.setEnabled(true);
 					viewButton.setEnabled(true);
 				}
 			}
 		});
 
-		this.listPanel.add(this.addButton);
-		this.listPanel.add(this.viewButton);
+		this.listPanel.add(buttonPanel);
 		this.listPanel.add(this.contactsList);
 
 		add(this.listPanel);
@@ -89,7 +90,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 				break;
 
 			case "VIEW":
-				showViewPanel(UUID.fromString(params[0]));
+				showViewPanel(selectedContact.getId());
 				break;
 
 			case "EDIT":
@@ -105,7 +106,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 	}
 
 	private DefaultListModel<Contact> getListModel() {
-		DefaultListModel<Contact> listModel = new DefaultListModel<Contact>();
+		DefaultListModel<Contact> listModel = new DefaultListModel<>();
 
 		for (Contact contact : PIM.getContactManager().getContacts()) {
 			listModel.addElement(contact);
@@ -115,9 +116,11 @@ public class ContactsPanel extends JPanel implements ActionListener
 	}
 
 	public void updateContactsList() {
+		Container c = this.contactsList.getParent();
+		c.remove(this.contactsList);
 		this.contactsList.setModel(getListModel());
 		this.viewButton.setEnabled(false);
-		this.addButton.setEnabled(false);
+		c.add(this.contactsList);
 	}
 
 	public void showListPanel() {

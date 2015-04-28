@@ -6,7 +6,7 @@ import java.util.*;
 public class ContactManager extends Manager {
 
 	private final Map<UUID, Contact> contacts;
-	private static final int SAVE_FILE_LENGTH = 15;
+	private static final int SAVE_FILE_LENGTH = 13;
 
 	public ContactManager() {
 		this.contacts = new HashMap<>();

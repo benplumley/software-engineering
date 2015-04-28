@@ -30,9 +30,9 @@ public class AddContactPanel extends JPanel implements ActionListener
 	private JButton cancelButton;
 
 	public AddContactPanel() {
-		super(new GridLayout(13, 1));
+		super(new GridBagLayout());
 		this.contact = new Contact();
-		this.firstNameField = new JTextField();
+		this.firstNameField = new JTextField(2);
 		this.surnameField = new JTextField();
 		this.mobileField = new JTextField();
 		this.homeNumberField = new JTextField();
@@ -95,36 +95,53 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.editButton.addActionListener(this);
 		this.editButton.setActionCommand("EDIT");
 
-		add(firstNameLabel);
-		add(firstNameField);
-		add(surnameLabel);
-		add(surnameField);
-		add(mobileLabel);
-		add(mobileField);
-		add(homeNumberLabel);
-		add(homeNumberField);
-		add(workNumberLabel);
-		add(workNumberField);
-		add(emailLabel);
-		add(emailField);
-		add(groupLabel);
-		add(groupField);
-		add(address1Label);
-		add(addressLine1Field);
-		add(address2Label);
-		add(addressLine2Field);
-		add(cityLabel);
-		add(cityField);
-		add(postcodeLabel);
-		add(postcodeField);
-		add(notesLabel);
-		add(notesField);
+		
+		JPanel pane = new JPanel(new GridLayout(26, 0));
+		pane.setPreferredSize(new Dimension(180, 550));
+		pane.add(firstNameLabel);
+		pane.add(firstNameField);
+		pane.add(surnameLabel);
+		pane.add(surnameField);
+		pane.add(mobileLabel);
+		pane.add(mobileField);
+		pane.add(homeNumberLabel);
+		pane.add(homeNumberField);
+		pane.add(workNumberLabel);
+		pane.add(workNumberField);
+		pane.add(emailLabel);
+		pane.add(emailField);
+		pane.add(groupLabel);
+		pane.add(groupField);
+		pane.add(address1Label);
+		pane.add(addressLine1Field);
+		pane.add(address2Label);
+		pane.add(addressLine2Field);
+		pane.add(cityLabel);
+		pane.add(cityField);
+		pane.add(postcodeLabel);
+		pane.add(postcodeField);
+		pane.add(notesLabel);
+		pane.add(notesField);
 
-		JPanel panel = new JPanel(new GridLayout(1, 2));
-		panel.add(this.addButton);
-		panel.add(this.cancelButton);
-		panel.add(this.editButton);
-		add(panel);
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+		panel.add(this.addButton, c);
+		c.gridx = 1;
+		panel.add(this.editButton, c);
+		c.gridx = 2;
+		panel.add(this.cancelButton, c);
+		pane.add(panel);
+		JScrollPane scrollPane = new JScrollPane(pane);
+		scrollPane.setMaximumSize(new Dimension(200, 270));
+		scrollPane.setMinimumSize(new Dimension(200, 270));
+		scrollPane.setPreferredSize(new Dimension(200, 270));
+		add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
+		unlockElements();
 	}
 
 	public AddContactPanel(Contact contact) {
@@ -165,15 +182,15 @@ public class AddContactPanel extends JPanel implements ActionListener
 
 				this.contact.addOrUpdate();
 				PIM.getGui().getContactsPanel().updateContactsList();
+				PIM.getGui().getContactsPanel().showListPanel();
+				break;
+
+			case "EDIT":
+				unlockElements();
 				break;
 
 			case "CANCEL":
-				if (contact.getFirstName() == null) {
-					PIM.getGui().getContactsPanel().showListPanel();
-				}
-				else {
-					PIM.getGui().getContactsPanel().showViewPanel(contact.getId());
-				}
+				PIM.getGui().getContactsPanel().showListPanel();
 				break;
 		}
 	}
@@ -193,7 +210,6 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.notesField.setEnabled(false);
 
 		this.addButton.setVisible(false);
-		this.cancelButton.setVisible(false);
 		this.editButton.setVisible(true);
 	}
 
@@ -212,7 +228,6 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.notesField.setEnabled(true);
 
 		this.addButton.setVisible(true);
-		this.cancelButton.setVisible(true);
 		this.editButton.setVisible(false);
 	}
 }

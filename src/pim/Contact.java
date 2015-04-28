@@ -41,13 +41,13 @@ public class Contact implements Savable {
 		this.mobileNumber = lines.get(3);
 		this.homeNumber = lines.get(4);
 		this.workNumber = lines.get(5);
-		this.email = lines.get(7);
-		this.group = lines.get(8);
-		this.addressLine1 = lines.get(9);
-		this.addressLine2 = lines.get(10);
-		this.city = lines.get(11);
-		this.postcode = lines.get(12);
-		this.notes = lines.get(13);
+		this.email = lines.get(6);
+		this.group = lines.get(7);
+		this.addressLine1 = lines.get(8);
+		this.addressLine2 = lines.get(9);
+		this.city = lines.get(10);
+		this.postcode = lines.get(11);
+		this.notes = lines.get(12);
 	}
 
 	/**
@@ -246,6 +246,7 @@ public class Contact implements Savable {
 				writer.println(this.surname);
 				writer.println(this.mobileNumber);
 				writer.println(this.homeNumber);
+				writer.println(this.workNumber);
 				writer.println(this.email);
 				writer.println(this.group);
 				writer.println(this.addressLine1);

@@ -25,7 +25,7 @@ public class GUI extends JFrame implements ActionListener {
 		setTitle("PIM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(200, 280);
-		setResizable(false);
+		setResizable(true);
 		setLayout(new CardLayout());
 
 		this.homePanel = new JPanel();
