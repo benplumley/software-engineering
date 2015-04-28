@@ -50,11 +50,13 @@ public class ContactsPanel extends JPanel implements ActionListener
 			@Override
 			public void valueChanged(ListSelectionEvent e)
 			{
-				if (contactsList.getSelectedIndex() == -1) {
+				if (contactsList.getSelectedIndex() == -1)
+				{
 					addButton.setEnabled(false);
 					viewButton.setEnabled(false);
 				}
-				else {
+				else
+				{
 					addButton.setEnabled(true);
 					viewButton.setEnabled(true);
 				}

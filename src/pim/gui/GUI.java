@@ -25,7 +25,8 @@ public class GUI extends JFrame implements ActionListener {
 		setTitle("PIM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(200, 280);
-		setResizable(true);
+		setResizable(false);
+		setLayout(new CardLayout());
 
 		this.homePanel = new JPanel();
 		this.homePanel.setLayout(new BoxLayout(this.homePanel, BoxLayout.PAGE_AXIS));
@@ -48,9 +49,9 @@ public class GUI extends JFrame implements ActionListener {
 
 		this.taskPanel = new TaskPanel();
 		this.contactsPanel = new ContactsPanel();
-		add(taskPanel);
-		add(contactsPanel);
-		add(homePanel);
+		add(taskPanel, "TASKS");
+		add(contactsPanel, "CONTACTS");
+		add(homePanel, "HOME");
 
 		this.taskPanel.setVisible(false);
 		this.contactsPanel.setVisible(false);
@@ -59,23 +60,20 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void displayHome() {
-		this.taskPanel.setVisible(false);
+		/*this.taskPanel.setVisible(false);
 		this.contactsPanel.setVisible(false);
-		this.homePanel.setVisible(true);
+		this.homePanel.setVisible(true);*/
+		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "HOME");
 
 		repaint();
 	}
 
 	private void displayContacts() {
-		this.homePanel.setVisible(false);
-		this.taskPanel.setVisible(false);
-		this.contactsPanel.setVisible(true);
+		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "CONTACTS");
 	}
 
 	private void displayTasks() {
-		this.homePanel.setVisible(false);
-		this.contactsPanel.setVisible(false);
-		this.taskPanel.setVisible(true);
+		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "TASKS");
 	}
 
 	@Override
