@@ -2,6 +2,7 @@ package pim.gui;
 
 import pim.QOTD;
 import pim.gui.contacts.ContactsPanel;
+import pim.gui.tasks.TaskPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,10 @@ public class GUI extends JFrame implements ActionListener {
 
 	public ContactsPanel getContactsPanel() {
 		return this.contactsPanel;
+	}
+
+	public TaskPanel getTasksPanel() {
+		return this.taskPanel;
 	}
 
 	public void initGUI() {
@@ -60,9 +65,6 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void displayHome() {
-		/*this.taskPanel.setVisible(false);
-		this.contactsPanel.setVisible(false);
-		this.homePanel.setVisible(true);*/
 		((CardLayout)getContentPane().getLayout()).show(getContentPane(), "HOME");
 
 		repaint();
