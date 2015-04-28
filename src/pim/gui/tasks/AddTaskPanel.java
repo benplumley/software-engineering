@@ -53,12 +53,12 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 
     JPanel pane = new JPanel(new GridLayout(6, 0));
 		pane.setPreferredSize(new Dimension(180, 550));
-    add(nameLabel);
-		add(nameField);
-		add(dueLabel);
-		add(dueDateField);
-		add(notesLabel);
-		add(notesField);
+    pane.add(nameLabel);
+    pane.add(nameField);
+    pane.add(dueLabel);
+    pane.add(dueDateField);
+    pane.add(notesLabel);
+    pane.add(notesField);
 
 
 		JPanel panel = new JPanel(new GridBagLayout());
