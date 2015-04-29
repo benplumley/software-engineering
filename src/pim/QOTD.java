@@ -9,6 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 public class QOTD {
+	/**
+	 * Gets the quote to display today. Based from system clock
+	 * @return Today's quote
+	 */
 	public static String getTodaysQuote() {
 		try {
 			File quoteFile = new File("Data/Quotes/quotes.txt");

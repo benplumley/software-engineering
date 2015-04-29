@@ -25,6 +25,9 @@ public class Contact implements Savable {
 	private String postcode;
 	private String notes;
 
+	/**
+	 * Constructs the Contact class and generates random ID
+	 */
 	public Contact() {
 		this.id = UUID.randomUUID();
 	}
@@ -131,72 +134,137 @@ public class Contact implements Savable {
 		this.homeNumber = value;
 	}
 
+	/**
+	 * Gets the work number
+	 * @return String the contact's work number
+	 */
 	public String getWorkNumber() {
 		return this.workNumber;
 	}
 
+	/**
+	 * Sets the work number
+	 * @param workNumber Work number to set
+	 */
 	public void setWorkNumber(String workNumber) {
 		this.workNumber = workNumber;
 	}
 
+	/**
+	 * Gets the email address
+	 * @return String the contact's email address
+	 */
 	public String getEmail() {
 		return this.email;
 	}
 
+	/**
+	 * Sets the email address
+	 * @param email Email address to set
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Gets the group
+	 * @return String the contact's group
+	 */
 	public String getGroup() {
 		return this.group;
 	}
 
+	/**
+	 * Sets the contacts group
+	 * @param group Contact to set
+	 */
 	public void setGroup(String group) {
 		this.group = group;
 	}
 
+	/**
+	 * Gets the contact's address line 1
+	 * @return Contact's address line 1
+	 */
 	public String getAddressLine1() {
 		return this.addressLine1;
 	}
 
+	/**
+	 * Sets the address line 1
+	 * @param addressLine1 Address line 1 to set
+	 */
 	public void setAddressLine1(String addressLine1) {
 		this.addressLine1 = addressLine1;
 	}
 
+	/**
+	 * Gets the contact's address line 2
+	 * @return Contact's address line 2
+	 */
 	public String getAddressLine2() {
 		return this.addressLine2;
 	}
 
+	/**
+	 * Sets the address line 2
+	 * @param addressLine2 Address line 2 to set
+	 */
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
 
+	/**
+	 * Gets the contacts city
+	 * @return Contact's city
+	 */
 	public String getCity() {
 		return this.city;
 	}
 
+	/**
+	 * Sets the contact's city
+	 * @param city City to set
+	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
 
+	/**
+	 * Gets the contact's postcode
+	 * @return Contact's postcode
+	 */
 	public String getPostcode() {
 		return this.postcode;
 	}
 
+	/**
+	 * Set the contact's  postcode
+	 * @param postcode Postcode to set
+	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
+	/**
+	 * Gets the contact's notes
+	 * @return Contact's notes
+	 */
 	public String getNotes() {
 		return this.notes;
 	}
 
+	/**
+	 * Sets the contact's notes
+	 * @param notes Notes to set
+	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 
 	/**
-	 * Saves all contact data to file
+	 * Saves all the contact's data to a file
+	 * Creates the file if it doesn't already exist
 	 */
 	@Override
 	public void addOrUpdate() {
@@ -240,6 +308,10 @@ public class Contact implements Savable {
 		PIM.getContactManager().remove(this);
 	}
 
+	/**
+	 * Overrides toString for JList on ContactsPanel
+	 * @return String of contacts FULL name
+	 */
 	@Override
 	public String toString() {
 		return getFullName();

@@ -20,16 +20,25 @@ public class EventsPanel extends JPanel implements ActionListener {
 	private JButton addButton;
 	private JButton viewButton;
 
+	/**
+	 * Constructs the EventsPanel class
+	 */
 	public EventsPanel() {
 		initComponents();
 	}
 
+	/**
+	 * Initializes all GUI components to be shown on the EventsPanel
+	 */
 	public void initComponents() {
 		initListPanel();
 
 		this.listPanel.setVisible(true);
 	}
 
+	/**
+	 * Initializes the List Panel which contains all upcoming events
+	 */
 	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
 		this.eventsList = new JList<>(getListModel());
@@ -87,6 +96,11 @@ public class EventsPanel extends JPanel implements ActionListener {
 		this.listPanel.setVisible(false);
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Handles navigation for the Events panels
+	 * @param e Event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
@@ -124,6 +138,10 @@ public class EventsPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gets the ListModel containing all events to be shown on the form
+	 * @return ListModel of events
+	 */
 	private DefaultListModel<Event> getListModel() {
 		DefaultListModel<Event> listModel = new DefaultListModel<>();
 
@@ -134,6 +152,9 @@ public class EventsPanel extends JPanel implements ActionListener {
 		return listModel;
 	}
 
+	/**
+	 * Updates the JList on the form with the most recent up to date events list
+	 */
 	public void updateEventsList() {
 		Container c = this.eventsList.getParent();
 		c.remove(this.eventsList);
@@ -142,6 +163,9 @@ public class EventsPanel extends JPanel implements ActionListener {
 		c.add(this.eventsList);
 	}
 
+	/**
+	 * Shows the main events list panel
+	 */
 	public void showListPanel() {
 		this.listPanel.setVisible(true);
 
@@ -152,6 +176,9 @@ public class EventsPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Shows the add panel for adding events
+	 */
 	public void showAddPanel() {
 		this.addPanel = new AddEventPanel();
 
@@ -160,10 +187,18 @@ public class EventsPanel extends JPanel implements ActionListener {
 		this.addPanel.setVisible(true);
 	}
 
+	/**
+	 * Sets the add panel into edit mode
+	 */
 	public void showEditPanel() {
 		this.addPanel.unlockElements();
 	}
 
+	/**
+	 * Shows the add panel in an uneditable state, with prefilled data for
+	 * a specific event
+	 * @param id Event ID to show
+	 */
 	public void showViewPanel(UUID id) {
 		if (this.addPanel != null) {
 			this.addPanel.lockElements();

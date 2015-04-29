@@ -28,6 +28,10 @@ public class AddEventPanel extends JPanel implements ActionListener {
 	private JButton editButton;
 	private JButton cancelButton;
 
+	/**
+	 * Constructs the AddEventPanel class
+	 * Initializes and adds all GUI elements to the panel
+	 */
 	public AddEventPanel() {
 		super(new GridBagLayout());
 		this.event = new Event();
@@ -112,6 +116,11 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		unlockElements();
 	}
 
+	/**
+	 * Constructs the AddEventPanel class
+	 * Sets values for all form elements to edit Event
+	 * @param event Event to edit
+	 */
 	public AddEventPanel(Event event) {
 		this();
 		this.event = event;
@@ -128,9 +137,13 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this.startDatePicker.getModel().setSelected(true);
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Handles any button clicks on the form
+	 * @param e Event
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 			case "ADD":
 				Date startDate = (Date)this.startDatePicker.getModel().getValue();
@@ -160,6 +173,9 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Locks all GUI input elements on the form, stops editing of fields
+	 */
 	public void lockElements() {
 		this.eventNameField.setEnabled(false);
 		this.locationField.setEnabled(false);
@@ -171,6 +187,9 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this.editButton.setVisible(true);
 	}
 
+	/**
+	 * Unlocks all GUI input elements on the form, enables editing of fields
+	 */
 	public void unlockElements() {
 		this.eventNameField.setEnabled(true);
 		this.locationField.setEnabled(true);

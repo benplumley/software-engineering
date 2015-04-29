@@ -20,10 +20,19 @@ public class Event implements Savable {
 	private String notes;
 	private String category;
 
+	/**
+	 * Constructs the Event class
+	 * Assigns a random UUID for the ID
+	 */
 	public Event() {
 		this.id = UUID.randomUUID();
 	}
 
+	/**
+	 * Constructs the Event class with given values
+	 * @param fileName File name (The ID)
+	 * @param lines All lines of the file
+	 */
 	public Event(String fileName, List<String> lines) {
 		this.id = UUID.fromString(fileName);
 		this.eventName = lines.get(1);
@@ -46,22 +55,42 @@ public class Event implements Savable {
 		return this.id;
 	}
 
+	/**
+	 * Sets the event's notes
+	 * @param noteSet Notes to set
+	 */
 	public void setNote(String noteSet){
 		notes = noteSet;
 	}
 
+	/**
+	 * Gets the event's notes
+	 * @return Event notes
+	 */
 	public String getNotes(){
 		return notes;
 	}
 
+	/**
+	 * Sets the event category
+	 * @param categorySet Category to set
+	 */
 	public void setCategory(String categorySet){
 		category = categorySet;
 	}
 
+	/**
+	 * Gets the event's category
+	 * @return Event category
+	 */
 	public String getCategory(){
 		return category;
 	}
 
+	/**
+	 * Sets the event location
+	 * @param locationSet Event location to set
+	 */
 	public void setLocation(String locationSet){
 		location = locationSet;
 	}
@@ -102,7 +131,8 @@ public class Event implements Savable {
 	}
 
 	/**
-	 * Saves all event data to file
+	 * Saves all the event's data to a file
+	 * Creates the file if it doesn't already exist
 	 */
 	@Override
 	public void addOrUpdate() {
@@ -138,6 +168,10 @@ public class Event implements Savable {
 		PIM.getEventManager().remove(this);
 	}
 
+	/**
+	 * Overrides toString for JList on EventsPanel
+	 * @return String of events name and date
+	 */
 	@Override
 	public String toString() {
 		return this.eventName + " " + this.format.format(this.startDate);

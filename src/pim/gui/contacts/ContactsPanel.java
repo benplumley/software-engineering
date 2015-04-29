@@ -21,16 +21,25 @@ public class ContactsPanel extends JPanel implements ActionListener
 	private JButton addButton;
 	private JButton viewButton;
 
+	/**
+	 * Constructs the ContactsPanel class
+	 */
 	public ContactsPanel() {
 		initComponents();
 	}
 
+	/**
+	 * Initializes all components for the ContactsPanel
+	 */
 	public void initComponents() {
 		initListPanel();
 
 		this.listPanel.setVisible(true);
 	}
 
+	/**
+	 * Constructs the List Panel view to hold all contacts in a JList
+	 */
 	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
 		this.contactsList = new JList<>(getListModel());
@@ -88,6 +97,11 @@ public class ContactsPanel extends JPanel implements ActionListener
 		this.listPanel.setVisible(false);
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Handles navigation for the ContactsPanel
+	 * @param e Event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
@@ -114,7 +128,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 				break;
 
 			case "EDIT":
-				showEditPanel(selectedContact.getId());
+				showEditPanel();
 				break;
 
 			case "DELETE":
@@ -125,6 +139,10 @@ public class ContactsPanel extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Gets the List Model containing all contacts to be displayed on the form
+	 * @return DefaultListModel containing Contact instances
+	 */
 	private DefaultListModel<Contact> getListModel() {
 		DefaultListModel<Contact> listModel = new DefaultListModel<>();
 
@@ -135,6 +153,9 @@ public class ContactsPanel extends JPanel implements ActionListener
 		return listModel;
 	}
 
+	/**
+	 * Updates the JList containing all the contacts
+	 */
 	public void updateContactsList() {
 		Container c = this.contactsList.getParent();
 		c.remove(this.contactsList);
@@ -143,6 +164,9 @@ public class ContactsPanel extends JPanel implements ActionListener
 		c.add(this.contactsList);
 	}
 
+	/**
+	 * Shows the panel with the list of contacts
+	 */
 	public void showListPanel() {
 		this.listPanel.setVisible(true);
 
@@ -153,6 +177,9 @@ public class ContactsPanel extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Shows the panel with all the fields for adding/editing contacts
+	 */
 	public void showAddPanel() {
 		this.addPanel = new AddContactPanel();
 
@@ -161,10 +188,17 @@ public class ContactsPanel extends JPanel implements ActionListener
 		this.addPanel.setVisible(true);
 	}
 
-	public void showEditPanel(UUID id) {
+	/**
+	 * Sets the add panel into edit mode
+	 */
+	public void showEditPanel() {
 		this.addPanel.unlockElements();
 	}
 
+	/**
+	 * Sets the add panel to display a contact's details and puts it into view mode
+	 * @param id ID of the contact to show
+	 */
 	public void showViewPanel(UUID id) {
 		if (this.addPanel != null) {
 			this.addPanel.lockElements();

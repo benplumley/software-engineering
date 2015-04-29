@@ -29,6 +29,10 @@ public class AddContactPanel extends JPanel implements ActionListener
 	private JButton editButton;
 	private JButton cancelButton;
 
+	/**
+	 * Constructs the AddContactsPanel class.
+	 * Initializes all components for the AddContactsPanel.
+	 */
 	public AddContactPanel() {
 		super(new GridBagLayout());
 		this.contact = new Contact();
@@ -144,6 +148,11 @@ public class AddContactPanel extends JPanel implements ActionListener
 		unlockElements();
 	}
 
+	/**
+	 * Constructs the AddContactsPanel
+	 * Sets values for all fields for previous contacts for editing
+	 * @param contact Contact to edit
+	 */
 	public AddContactPanel(Contact contact) {
 		this();
 		this.contact = contact;
@@ -162,9 +171,13 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.notesField.setText(contact.getNotes());
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Used to either add/update contact or go back
+	 * @param e Event
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 			case "ADD":
 				if (this.firstNameField.getText().length() == 0) {
@@ -208,6 +221,9 @@ public class AddContactPanel extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Lock all GUI input elements and disable editing
+	 */
 	public void lockElements() {
 		this.firstNameField.setEnabled(false);
 		this.surnameField.setEnabled(false);
@@ -226,6 +242,9 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.editButton.setVisible(true);
 	}
 
+	/**
+	 * Unlock all GUI input elements and enable editing
+	 */
 	public void unlockElements() {
 		this.firstNameField.setEnabled(true);
 		this.surnameField.setEnabled(true);

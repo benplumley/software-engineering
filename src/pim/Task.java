@@ -16,15 +16,20 @@ public class Task implements Savable {
 
 	private final UUID id;
 	private String taskName;
-	private Date dueDateTime;
+	private Date dueDate;
 	private boolean taskStatus;
 	private String taskNotes;
 
+	/**
+	 * Constructs the Task class with data
+	 * @param fileName Name of the file (The ID)
+	 * @param lines Lines within the file
+	 */
 	public Task(String fileName, List<String> lines) {
 		this.id = UUID.fromString(fileName);
 		this.taskName = lines.get(1);
 		try {
-			this.dueDateTime = this.dateFormat.parse(lines.get(2));
+			this.dueDate = this.dateFormat.parse(lines.get(2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -32,62 +37,97 @@ public class Task implements Savable {
 		this.taskNotes = lines.get(4);
 	}
 
+	/**
+	 * Constructs the Task class assigning a random UUID for ID
+	 */
 	public Task() {
 		this.id = UUID.randomUUID();
 		this.taskStatus = false;
 	}
 
+	/**
+	 * Gets the task's ID
+	 * @return Task ID
+	 */
 	public UUID getId() {
 		return id;
 	}
 
+	/**
+	 * Gets the task's name
+	 * @return Task Name
+	 */
 	public String getTaskName() {
 		return taskName;
 	}
 
-	public Date getDueDateTime() {
-		return dueDateTime;
+	/**
+	 * Gets the Task's due date
+	 * @return Task due date
+	 */
+	public Date getDueDate() {
+		return dueDate;
 	}
 
-	public String getDueDateTimeString() {
-		return dateFormat.format(dueDateTime);
-	}
-
+	/**
+	 * Gets the task status
+	 * @return Task status
+	 */
 	public boolean getTaskStatus() {
 		return taskStatus;
 	}
 
+	/**
+	 * Gets the task status string
+	 * @return Task status string
+	 */
 	public String getTaskStatusString() {
-		if(taskStatus == true) {
-			return "Done";
-		}
-		else {
-			return "Incomplete";
-		}
+		return this.taskStatus ? "Complete" : "Incomplete";
 	}
 
+	/**
+	 * Gets the task notes
+	 * @return Task notes
+	 */
 	public String getTaskNotes() {
 		return taskNotes;
 	}
 
+	/**
+	 * Sets the task's name
+	 * @param newName Task name to set
+	 */
 	public void setTaskName(String newName) {
 		taskName = newName;
 	}
 
-	public void setDueDateTime(Date date) {
-		dueDateTime = date;
+	/**
+	 * Sets the task's due date
+	 * @param date Task due date to set
+	 */
+	public void setDueDate(Date date) {
+		dueDate = date;
 	}
 
+	/**
+	 * Sets the task's status
+	 * @param newStatus Task status to set
+	 */
 	public void setTaskStatus(boolean newStatus) {
 		taskStatus = newStatus;
 	}
 
+	/**
+	 * Sets the task notes
+	 * @param newNotes Task nots to set
+	 */
 	public void setTaskNotes(String newNotes) {
 		taskNotes = newNotes;
 	}
 
 	/**
-	 * Saves all task data to file
+	 * Saves all the task's data to a file
+	 * Creates the file if it doesn't already exist
 	 */
 	@Override
 	public void addOrUpdate() {
@@ -102,7 +142,7 @@ public class Task implements Savable {
 			try (PrintWriter writer = new PrintWriter(file)) {
 				writer.println(this.id.toString());
 				writer.println(this.taskName.toString());
-				writer.println(this.dueDateTime != null ? this.dateFormat.format(dueDateTime) : "");
+				writer.println(this.dueDate != null ? this.dateFormat.format(dueDate) : "");
 				writer.println(this.taskStatus);
 				writer.println(this.taskNotes.toString());
 			}
@@ -123,9 +163,12 @@ public class Task implements Savable {
 		PIM.getTaskManager().remove(this);
 	}
 
-	//Overrides the toString method. Used in the GUI list.
+	/**
+	 * Overrides toString for JList on TasksPanel
+	 * @return String of task name
+	 */
 	@Override
 	public String toString() {
-		return taskName;
+		return this.taskName;
 	}
 }

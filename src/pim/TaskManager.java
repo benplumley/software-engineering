@@ -20,6 +20,9 @@ public class TaskManager extends Manager {
 		}
 	}
 
+	/**
+	 * Generates the save directories if they don't already exist
+	 */
 	@Override
 	public void generateDirectories() {
 		File file = new File("Data/My Tasks/");
@@ -29,6 +32,11 @@ public class TaskManager extends Manager {
 		}
 	}
 
+	/**
+	 * Checks if a file is valid to load
+	 * @param lines Lines of the file
+	 * @return True if should be loaded
+	 */
 	@Override
 	protected boolean isFileValid(List<String> lines) {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 && lines.get(1).length() > 0; // id and name is required
@@ -62,10 +70,19 @@ public class TaskManager extends Manager {
 		}
 	}
 
+	/**
+	 * Gets a specific task by ID
+	 * @param id ID of the task to get
+	 * @return Task
+	 */
 	public Task getTask(UUID id) {
 		return this.tasks.get(id);
 	}
 
+	/**
+	 * Gets all valid tasks to be displayed
+	 * @return Valid tasks
+	 */
 	public Collection<Task> getTasks() {
 		return this.tasks.values();
 	}

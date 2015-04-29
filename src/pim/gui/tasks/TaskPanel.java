@@ -19,16 +19,25 @@ public class TaskPanel extends JPanel implements ActionListener {
 	private JButton addButton;
 	private JButton viewButton;
 
+	/**
+	 * Constructs the TaskPanel class
+	 */
 	public TaskPanel() {
 		initComponents();
 	}
 
+	/**
+	 * Initializes all GUI elements to be shown on the panel
+	 */
 	public void initComponents() {
 		initListPanel();
 
 		this.listPanel.setVisible(true);
 	}
 
+	/**
+	 * Initializes the List Panel where all the Tasks are displayed
+	 */
 	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
 		this.taskList = new JList<>(getListModel());
@@ -82,6 +91,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 		this.listPanel.setVisible(false);
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Handles all navigation for the TaskPanel
+	 * @param e Event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
@@ -119,6 +133,10 @@ public class TaskPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Gets the list model containing all tasks to show
+	 * @return ListModel of Tasks
+	 */
 	private DefaultListModel<Task> getListModel() {
 		DefaultListModel<Task> listModel = new DefaultListModel<>();
 
@@ -129,6 +147,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 		return listModel;
 	}
 
+	/**
+	 * Updates the JList with the most up to date elements
+	 */
 	public void updateTaskList() {
 		Container c = this.taskList.getParent();
 		c.remove(this.taskList);
@@ -137,6 +158,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 		c.add(this.taskList);
 	}
 
+	/**
+	 * Shows the main List Panel
+	 */
 	public void showListPanel() {
 		this.listPanel.setVisible(true);
 
@@ -147,6 +171,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Shows the Add panel
+	 */
 	public void showAddPanel() {
 		this.addPanel = new AddTaskPanel();
 
@@ -155,10 +182,17 @@ public class TaskPanel extends JPanel implements ActionListener {
 		this.addPanel.setVisible(true);
 	}
 
+	/**
+	 * Sets the Add panel to edit mode
+	 */
 	public void showEditPanel() {
 		this.addPanel.unlockElements();
 	}
 
+	/**
+	 * Shows the View Panel with pre filled data
+	 * @param id ID of the task to show data of
+	 */
 	public void showViewPanel(UUID id) {
 		if (this.addPanel != null) {
 			this.addPanel.lockElements();

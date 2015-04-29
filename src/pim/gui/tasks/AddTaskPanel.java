@@ -26,6 +26,10 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 	private JButton editButton;
 	private JButton cancelButton;
 
+	/**
+	 * Constructs the AddTaskPanel class
+	 * Initializes all GUI elements to be shown on the panel
+	 */
 	public AddTaskPanel() {
 		super(new GridBagLayout());
 		this.task = new Task();
@@ -92,6 +96,11 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		unlockElements();
 	}
 
+	/**
+	 * Constructs the AddTaskPanel class
+	 * Sets values from an already existing class to the fields
+	 * @param task Task to set values of
+	 */
 	public AddTaskPanel(Task task) {
 		this();
 		this.task = task;
@@ -101,12 +110,17 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 
 
 		Calendar c = Calendar.getInstance();
-		c.setTime(this.task.getDueDateTime());
+		c.setTime(this.task.getDueDate());
 		this.dueDatePicker.getModel().setDay(c.get(Calendar.DAY_OF_MONTH));
 		this.dueDatePicker.getModel().setMonth(c.get(Calendar.MONTH));
 		this.dueDatePicker.getModel().setYear(c.get(Calendar.YEAR));
 	}
 
+	/**
+	 * Called when an event is fired from the form
+	 * Handles all button presses from the form
+	 * @param e Event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
@@ -115,7 +129,7 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 					JOptionPane.showMessageDialog(this, "You need to enter a task name!", "Oops!", JOptionPane.ERROR_MESSAGE);
 				}
 				this.task.setTaskName(this.nameField.getText());
-				this.task.setDueDateTime((Date)this.dueDatePicker.getModel().getValue());
+				this.task.setDueDate((Date) this.dueDatePicker.getModel().getValue());
 				this.task.setTaskNotes(this.notesField.getText());
 
 				this.task.addOrUpdate();
@@ -133,12 +147,18 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Locks all GUI input elements on the form, disables editing of values
+	 */
 	public void lockElements() {
 		this.nameField.setEnabled(false);
 		this.dueDatePicker.setEnabled(false);
 		this.notesField.setEnabled(false);
 	}
 
+	/**
+	 * Unlocks all GUI input elements on the form, enables editing of values
+	 */
 	public void unlockElements() {
 		this.nameField.setEnabled(true);
 		this.dueDatePicker.setEnabled(true);
