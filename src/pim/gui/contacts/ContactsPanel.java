@@ -16,7 +16,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 	private JPanel listPanel;
 	private AddContactPanel addPanel;
 
-	private JList contactsList;
+	private JList<Contact> contactsList;
 
 	private JButton addButton;
 	private JButton viewButton;
@@ -33,7 +33,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 
 	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
-		this.contactsList = new JList(getListModel());
+		this.contactsList = new JList<>(getListModel());
 		this.contactsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		this.addButton = new JButton("Add");

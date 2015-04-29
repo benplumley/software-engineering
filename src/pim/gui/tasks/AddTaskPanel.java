@@ -51,14 +51,14 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.editButton.addActionListener(this);
 		this.editButton.setActionCommand("EDIT");
 
-    JPanel pane = new JPanel(new GridLayout(6, 0));
-		pane.setPreferredSize(new Dimension(180, 550));
-    pane.add(nameLabel);
-    pane.add(nameField);
-    pane.add(dueLabel);
-    pane.add(dueDateField);
-    pane.add(notesLabel);
-    pane.add(notesField);
+    JPanel pane = new JPanel(new GridLayout(7, 1));
+		pane.setPreferredSize(new Dimension(180, 390));
+		pane.add(nameLabel);
+		pane.add(nameField);
+		pane.add(dueLabel);
+		pane.add(dueDateField);
+		pane.add(notesLabel);
+		pane.add(notesField);
 
 
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -74,9 +74,8 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		panel.add(this.cancelButton, c);
 		pane.add(panel);
 		JScrollPane scrollPane = new JScrollPane(pane);
-		scrollPane.setMaximumSize(new Dimension(200, 270));
 		scrollPane.setMinimumSize(new Dimension(200, 270));
-		scrollPane.setPreferredSize(new Dimension(200, 270));
+		scrollPane.setPreferredSize(new Dimension(180, 270));
 		add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		unlockElements();
@@ -96,6 +95,9 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 	{
 		switch (e.getActionCommand()) {
 			case "ADD":
+				if (this.nameField.getText().length() == 0) {
+					JOptionPane.showMessageDialog(this, "You need to enter a task name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+				}
 				this.task.setTaskName(this.nameField.getText());
 				this.task.setDueDateTime(this.dueDateField.getText());
 				this.task.setTaskNotes(this.notesField.getText());

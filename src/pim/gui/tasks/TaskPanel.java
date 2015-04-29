@@ -14,7 +14,7 @@ public class TaskPanel extends JPanel implements ActionListener{
   private JPanel listPanel;
 	private AddTaskPanel addPanel;
 
-	private JList taskList;
+	private JList<Task> taskList;
 
 	private JButton addButton;
 	private JButton viewButton;
@@ -31,7 +31,7 @@ public class TaskPanel extends JPanel implements ActionListener{
 
   private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
-		this.taskList = new JList(getListModel());
+		this.taskList = new JList<>(getListModel());
 		this.taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		this.addButton = new JButton("Add");

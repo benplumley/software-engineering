@@ -16,7 +16,7 @@ public class EventsPanel extends JPanel implements ActionListener {
 	private JPanel listPanel;
 	private AddEventPanel addPanel;
 
-	private JList eventsList;
+	private JList<Event> eventsList;
 
 	private JButton addButton;
 	private JButton viewButton;
@@ -33,7 +33,7 @@ public class EventsPanel extends JPanel implements ActionListener {
 
 	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
-		this.eventsList = new JList(getListModel());
+		this.eventsList = new JList<>(getListModel());
 		this.eventsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		this.addButton = new JButton("Add");
