@@ -61,6 +61,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		this.homePanel.add(taskButton);
 		this.homePanel.add(contactButton);
+		this.homePanel.add(eventButton);
 		this.homePanel.add(quoteTodayLabel);
 
 		this.taskPanel = new TaskPanel();

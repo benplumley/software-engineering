@@ -1,5 +1,9 @@
 package pim.gui.events;
 
+import org.jdatepicker.impl.DateComponentFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 import pim.Event;
 import pim.PIM;
 
@@ -7,22 +11,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
 
 public class AddEventPanel extends JPanel implements ActionListener {
 	private Event event;
 
-	private JTextField firstNameField;
-	private JTextField surnameField;
-	private JTextField mobileField;
-	private JTextField homeNumberField;
-	private JTextField workNumberField;
-	private JTextField emailField;
-	private JTextField groupField;
-	private JTextField addressLine1Field;
-	private JTextField addressLine2Field;
-	private JTextField cityField;
-	private JTextField postcodeField;
+	private JTextField eventNameField;
+	private JTextField locationField;
 	private JTextField notesField;
+	private JTextField categoryField;
+	private JDatePickerImpl startDatePicker;
 
 	private JButton addButton;
 	private JButton editButton;
@@ -31,56 +31,31 @@ public class AddEventPanel extends JPanel implements ActionListener {
 	public AddEventPanel() {
 		super(new GridBagLayout());
 		this.event = new Event();
-		this.firstNameField = new JTextField(2);
-		this.surnameField = new JTextField();
-		this.mobileField = new JTextField();
-		this.homeNumberField = new JTextField();
-		this.workNumberField = new JTextField();
-		this.emailField = new JTextField();
-		this.groupField = new JTextField();
-		this.addressLine1Field = new JTextField();
-		this.addressLine2Field = new JTextField();
-		this.cityField = new JTextField();
-		this.postcodeField = new JTextField();
+		this.eventNameField = new JTextField();
+		this.locationField = new JTextField();
 		this.notesField = new JTextField();
+		this.categoryField = new JTextField();
 
-		this.firstNameField.addActionListener(this);
-		this.firstNameField.setActionCommand("ADD");
-		this.surnameField.addActionListener(this);
-		this.surnameField.setActionCommand("ADD");
-		this.mobileField.addActionListener(this);
-		this.mobileField.setActionCommand("ADD");
-		this.homeNumberField.addActionListener(this);
-		this.homeNumberField.setActionCommand("ADD");
-		this.workNumberField.addActionListener(this);
-		this.workNumberField.setActionCommand("ADD");
-		this.emailField.addActionListener(this);
-		this.emailField.setActionCommand("ADD");
-		this.groupField.addActionListener(this);
-		this.groupField.setActionCommand("ADD");
-		this.addressLine1Field.addActionListener(this);
-		this.addressLine1Field.setActionCommand("ADD");
-		this.addressLine2Field.addActionListener(this);
-		this.addressLine2Field.setActionCommand("ADD");
-		this.cityField.addActionListener(this);
-		this.cityField.setActionCommand("ADD");
-		this.postcodeField.addActionListener(this);
-		this.postcodeField.setActionCommand("ADD");
+		Properties prop = new Properties();
+		prop.put("text.today", "Today");
+		prop.put("text.month", "Month");
+		prop.put("text.year", "Year");
+		this.startDatePicker = new JDatePickerImpl(new JDatePanelImpl(new UtilDateModel(), prop), new DateComponentFormatter());
+
+		this.eventNameField.addActionListener(this);
+		this.eventNameField.setActionCommand("ADD");
+		this.locationField.addActionListener(this);
+		this.locationField.setActionCommand("ADD");
 		this.notesField.addActionListener(this);
 		this.notesField.setActionCommand("ADD");
+		this.categoryField.addActionListener(this);
+		this.categoryField.setActionCommand("ADD");
 
-		JLabel firstNameLabel = new JLabel("First Name");
-		JLabel surnameLabel = new JLabel("Surname");
-		JLabel mobileLabel = new JLabel("Mobile Number");
-		JLabel homeNumberLabel = new JLabel("Home Number");
-		JLabel workNumberLabel = new JLabel("Work Number");
-		JLabel emailLabel = new JLabel("Email");
-		JLabel groupLabel = new JLabel("Group");
-		JLabel address1Label = new JLabel("Address Line 1");
-		JLabel address2Label = new JLabel("Address Line 2");
-		JLabel cityLabel = new JLabel("City");
-		JLabel postcodeLabel = new JLabel("Postcode");
+		JLabel eventNameLabel = new JLabel("Event Name");
+		JLabel locationLabel = new JLabel("Location");
 		JLabel notesLabel = new JLabel("Notes");
+		JLabel categoryLabel = new JLabel("Category");
+		JLabel startDateLabel = new JLabel("Start Date");;
 
 		this.addButton = new JButton("Add");
 		this.addButton.addActionListener(this);
@@ -95,32 +70,19 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this.editButton.setActionCommand("EDIT");
 
 
-		JPanel pane = new JPanel(new GridLayout(26, 0));
+		JPanel pane = new JPanel(new GridLayout(15, 0));
 		pane.setPreferredSize(new Dimension(180, 550));
-		pane.add(firstNameLabel);
-		pane.add(firstNameField);
-		pane.add(surnameLabel);
-		pane.add(surnameField);
-		pane.add(mobileLabel);
-		pane.add(mobileField);
-		pane.add(homeNumberLabel);
-		pane.add(homeNumberField);
-		pane.add(workNumberLabel);
-		pane.add(workNumberField);
-		pane.add(emailLabel);
-		pane.add(emailField);
-		pane.add(groupLabel);
-		pane.add(groupField);
-		pane.add(address1Label);
-		pane.add(addressLine1Field);
-		pane.add(address2Label);
-		pane.add(addressLine2Field);
-		pane.add(cityLabel);
-		pane.add(cityField);
-		pane.add(postcodeLabel);
-		pane.add(postcodeField);
+		pane.add(eventNameLabel);
+		pane.add(eventNameField);
+		pane.add(locationLabel);
+		pane.add(locationField);
 		pane.add(notesLabel);
 		pane.add(notesField);
+		pane.add(categoryLabel);
+		pane.add(categoryField);
+		pane.add(startDateLabel);
+		pane.add(startDatePicker);
+		pane.add(new JLabel(""));
 
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -140,6 +102,13 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		scrollPane.setPreferredSize(new Dimension(200, 270));
 		add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		this.startDatePicker.getModel().setDay(cal.get(Calendar.DAY_OF_MONTH));
+		this.startDatePicker.getModel().setMonth(cal.get(Calendar.MONTH));
+		this.startDatePicker.getModel().setYear(cal.get(Calendar.YEAR));
+		this.startDatePicker.getModel().setSelected(true);
+
 		unlockElements();
 	}
 
@@ -147,18 +116,16 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this();
 		this.event = event;
 
-		/*this.firstNameField.setText(contact.getFirstName());
-		this.surnameField.setText(contact.getSurname());
-		this.mobileField.setText(contact.getMobileNumber());
-		this.homeNumberField.setText(contact.getHomeNumber());
-		this.workNumberField.setText(contact.getWorkNumber());
-		this.emailField.setText(contact.getEmail());
-		this.groupField.setText(contact.getGroup());
-		this.addressLine1Field.setText(contact.getAddressLine1());
-		this.addressLine2Field.setText(contact.getAddressLine2());
-		this.cityField.setText(contact.getCity());
-		this.postcodeField.setText(contact.getPostcode());
-		this.notesField.setText(contact.getNotes());*/
+		this.eventNameField.setText(event.getName());
+		this.locationField.setText(event.getLocation());
+		this.notesField.setText(event.getNotes());
+		this.categoryField.setText(event.getCategory());
+		Calendar c = Calendar.getInstance();
+		c.setTime(this.event.getStartDate());
+		this.startDatePicker.getModel().setDay(c.get(Calendar.DAY_OF_MONTH));
+		this.startDatePicker.getModel().setMonth(c.get(Calendar.MONTH));
+		this.startDatePicker.getModel().setYear(c.get(Calendar.YEAR));
+		this.startDatePicker.getModel().setSelected(true);
 	}
 
 	@Override
@@ -166,28 +133,17 @@ public class AddEventPanel extends JPanel implements ActionListener {
 	{
 		switch (e.getActionCommand()) {
 			case "ADD":
-				if (this.firstNameField.getText().length() == 0) {
-					JOptionPane.showMessageDialog(this, "You need to enter a first name!", "Oops!", JOptionPane.ERROR_MESSAGE);
-				}
-				else if (!PIM.checkIsNumeric(this.mobileField.getText()) || !PIM.checkIsNumeric(this.workNumberField.getText()) || !PIM.checkIsNumeric(this.homeNumberField.getText())) {
-					JOptionPane.showMessageDialog(this, "You can only enter numbers for phone numbers!", "Oops!", JOptionPane.ERROR_MESSAGE);
-				}
-				else if (this.mobileField.getText().length() != 11 || this.workNumberField.getText().length() != 11 || this.homeNumberField.getText().length() != 11) {
-					JOptionPane.showMessageDialog(this, "The phone number must be 11 numbers!", "Oops!", JOptionPane.ERROR_MESSAGE);
+				Date startDate = (Date)this.startDatePicker.getModel().getValue();
+				if (this.eventNameField.getText().length() == 0) {
+					JOptionPane.showMessageDialog(this, "You need to enter an event name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 
-				/*this.contact.setFirstName(this.firstNameField.getText());
-				this.contact.setSurname(this.surnameField.getText());
-				this.contact.setWorkNumber(this.workNumberField.getText());
-				this.contact.setMobileNumber(this.mobileField.getText());
-				this.contact.setHomeNumber(this.homeNumberField.getText());
-				this.contact.setEmail(this.emailField.getText());
-				this.contact.setGroup(this.groupField.getText());
-				this.contact.setAddressLine1(this.addressLine1Field.getText());
-				this.contact.setAddressLine2(this.addressLine2Field.getText());
-				this.contact.setCity(this.cityField.getText());
-				this.contact.setPostcode(this.postcodeField.getText());
-				this.contact.setNotes(this.notesField.getText());*/
+				this.event.setName(this.eventNameField.getText());
+				this.event.setLocation(this.locationField.getText());
+				this.event.setNote(this.notesField.getText());
+				this.event.setCategory(this.categoryField.getText());
+				this.event.setStartDate(startDate);
 
 				this.event.addOrUpdate();
 				PIM.getGui().getEventsPanel().updateEventsList();
@@ -205,36 +161,22 @@ public class AddEventPanel extends JPanel implements ActionListener {
 	}
 
 	public void lockElements() {
-		this.firstNameField.setEnabled(false);
-		this.surnameField.setEnabled(false);
-		this.mobileField.setEnabled(false);
-		this.homeNumberField.setEnabled(false);
-		this.workNumberField.setEnabled(false);
-		this.emailField.setEnabled(false);
-		this.groupField.setEnabled(false);
-		this.addressLine1Field.setEnabled(false);
-		this.addressLine2Field.setEnabled(false);
-		this.cityField.setEnabled(false);
-		this.postcodeField.setEnabled(false);
+		this.eventNameField.setEnabled(false);
+		this.locationField.setEnabled(false);
+		this.startDatePicker.setEnabled(false);
 		this.notesField.setEnabled(false);
+		this.categoryField.setEnabled(false);
 
 		this.addButton.setVisible(false);
 		this.editButton.setVisible(true);
 	}
 
 	public void unlockElements() {
-		this.firstNameField.setEnabled(true);
-		this.surnameField.setEnabled(true);
-		this.mobileField.setEnabled(true);
-		this.homeNumberField.setEnabled(true);
-		this.workNumberField.setEnabled(true);
-		this.emailField.setEnabled(true);
-		this.groupField.setEnabled(true);
-		this.addressLine1Field.setEnabled(true);
-		this.addressLine2Field.setEnabled(true);
-		this.cityField.setEnabled(true);
-		this.postcodeField.setEnabled(true);
+		this.eventNameField.setEnabled(true);
+		this.locationField.setEnabled(true);
+		this.startDatePicker.setEnabled(true);
 		this.notesField.setEnabled(true);
+		this.categoryField.setEnabled(true);
 
 		this.addButton.setVisible(true);
 		this.editButton.setVisible(false);

@@ -45,9 +45,25 @@ public class ContactsPanel extends JPanel implements ActionListener
 		this.viewButton.setActionCommand("VIEW");
 		this.viewButton.setEnabled(false);
 
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(this.addButton);
-		buttonPanel.add(this.viewButton);
+		JButton homeButton = new JButton("Home");
+		homeButton.addActionListener(this);
+		homeButton.setActionCommand("ROOT");
+
+		JPanel buttonPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.weightx = 1;
+		constraints.gridwidth = 1;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		buttonPanel.add(this.addButton, constraints);
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		buttonPanel.add(this.viewButton, constraints);
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		buttonPanel.add(homeButton, constraints);
 
 		this.contactsList.addListSelectionListener(new ListSelectionListener()
 		{
@@ -78,11 +94,15 @@ public class ContactsPanel extends JPanel implements ActionListener
 
 		String[] params = e.getActionCommand().replace(command, "").split(" ");
 
-		Contact selectedContact = (Contact)this.contactsList.getSelectedValue();
+		Contact selectedContact = this.contactsList.getSelectedValue();
 
 		switch (command) {
 			case "HOME":
 				showListPanel();
+				break;
+
+			case "ROOT":
+				PIM.getGui().displayHome();
 				break;
 
 			case "ADD":

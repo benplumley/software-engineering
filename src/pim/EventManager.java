@@ -6,7 +6,7 @@ import java.util.*;
 public class EventManager extends Manager {
 
 	private Map<UUID, Event> events;
-	private static final int SAVE_FILE_LENGTH = 7;
+	private static final int SAVE_FILE_LENGTH = 6;
 
 	public EventManager() {
 		this.events = new HashMap<>();
@@ -35,7 +35,7 @@ public class EventManager extends Manager {
 	@Override
 	protected boolean isFileValid(List<String> lines) {
 		return lines.size() == SAVE_FILE_LENGTH && lines.get(0).length() > 0 &&
-		 lines.get(1).length() > 0 && lines.get(2).length() > 0 && lines.get(3).length() > 0; // id, event name, start date and end date is required
+		 lines.get(1).length() > 0 && lines.get(2).length() > 0; // id, event name, start date are required
 	}
 
 	/**
@@ -70,8 +70,26 @@ public class EventManager extends Manager {
 		return this.events.get(id);
 	}
 
-	public Collection<Event> getEvents()
-	{
-		return this.events.values();
+	public Collection<Event> getEvents() {
+		List<Event> activeEvents = new ArrayList<>();
+		Date currentDate = new Date();
+		for (Event event : this.events.values()) {
+			if (currentDate.after(event.getStartDate())) {
+				continue;
+			}
+
+			activeEvents.add(event);
+		}
+
+		Collections.sort(activeEvents, new Comparator<Event>()
+		{
+			@Override
+			public int compare(Event o1, Event o2)
+			{
+				return o1.getStartDate().after(o2.getStartDate()) ? 1 : -1;
+			}
+		});
+
+		return activeEvents;
 	}
 }

@@ -24,7 +24,7 @@ public abstract class Manager {
 		try {
 			File[] saveFiles = new File(path).listFiles();
 			for (File saveFile : saveFiles) {
-				List<String> lines = Files.readAllLines(saveFile.toPath(), Charset.defaultCharset());
+				List<String> lines = Files.readAllLines(saveFile.toPath(), Charset.forName("ISO-8859-1"));
 				if (isFileValid(lines)) {
 					files.add(lines);
 				}

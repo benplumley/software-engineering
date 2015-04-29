@@ -10,8 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.UUID;
 
-public class TaskPanel extends JPanel implements ActionListener{
-  private JPanel listPanel;
+public class TaskPanel extends JPanel implements ActionListener {
+	private JPanel listPanel;
 	private AddTaskPanel addPanel;
 
 	private JList<Task> taskList;
@@ -19,17 +19,17 @@ public class TaskPanel extends JPanel implements ActionListener{
 	private JButton addButton;
 	private JButton viewButton;
 
-  public TaskPanel(){
-    initComponents();
-  }
+	public TaskPanel() {
+		initComponents();
+	}
 
-  public void initComponents() {
+	public void initComponents() {
 		initListPanel();
 
 		this.listPanel.setVisible(true);
 	}
 
-  private void initListPanel() {
+	private void initListPanel() {
 		this.listPanel = new JPanel(new GridLayout(2, 0));
 		this.taskList = new JList<>(getListModel());
 		this.taskList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -43,21 +43,33 @@ public class TaskPanel extends JPanel implements ActionListener{
 		this.viewButton.setActionCommand("VIEW");
 		this.viewButton.setEnabled(false);
 
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(this.addButton);
-		buttonPanel.add(this.viewButton);
+		JButton homeButton = new JButton("Home");
+		homeButton.addActionListener(this);
+		homeButton.setActionCommand("ROOT");
 
-		this.taskList.addListSelectionListener(new ListSelectionListener()
-		{
+		JPanel buttonPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.weightx = 1;
+		constraints.gridwidth = 1;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		buttonPanel.add(this.addButton, constraints);
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		buttonPanel.add(this.viewButton, constraints);
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		buttonPanel.add(homeButton, constraints);
+
+		this.taskList.addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void valueChanged(ListSelectionEvent e)
-			{
-				if (taskList.getSelectedIndex() == -1)
-				{
+			public void valueChanged(ListSelectionEvent e) {
+				if (taskList.getSelectedIndex() == -1) {
 					viewButton.setEnabled(false);
 				}
-				else
-				{
+				else {
 					viewButton.setEnabled(true);
 				}
 			}
@@ -70,17 +82,21 @@ public class TaskPanel extends JPanel implements ActionListener{
 		this.listPanel.setVisible(false);
 	}
 
-  @Override
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
 
 		String[] params = e.getActionCommand().replace(command, "").split(" ");
 
-		Task selectedTask = (Task)this.taskList.getSelectedValue();
+		Task selectedTask = this.taskList.getSelectedValue();
 
 		switch (command) {
 			case "HOME":
 				showListPanel();
+				break;
+
+			case "ROOT":
+				PIM.getGui().displayHome();
 				break;
 
 			case "ADD":
@@ -92,7 +108,7 @@ public class TaskPanel extends JPanel implements ActionListener{
 				break;
 
 			case "EDIT":
-				showEditPanel(selectedTask.getId());
+				showEditPanel();
 				break;
 
 			case "DELETE":
@@ -139,7 +155,7 @@ public class TaskPanel extends JPanel implements ActionListener{
 		this.addPanel.setVisible(true);
 	}
 
-	public void showEditPanel(UUID id) {
+	public void showEditPanel() {
 		this.addPanel.unlockElements();
 	}
 

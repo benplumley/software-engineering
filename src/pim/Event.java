@@ -6,20 +6,16 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 public class Event implements Savable {
 
 	// this class will be instantiated to create a unique event. Recurring events instantiate only
 	// once for the whole series.
-	private final DateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);;
+	private final DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 	private final UUID id;
 	private String eventName;
 	private Date startDate;
-	private Date endDate;
 	private String location; //An arbitary 'location' of the event, set by the user.
 	private String notes;
 	private String category;
@@ -33,13 +29,12 @@ public class Event implements Savable {
 		this.eventName = lines.get(1);
 		try {
 			this.startDate= format.parse(lines.get(2));
-			this.endDate = format.parse(lines.get(3));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		this.location = lines.get(4);
-		this.category = lines.get(6);
-		this.notes = lines.get(7);
+		this.location = lines.get(3);
+		this.category = lines.get(4);
+		this.notes = lines.get(5);
 	}
 
 	/**
@@ -105,20 +100,6 @@ public class Event implements Savable {
 	public Date getStartDate(){
 		return startDate;
 	}
-	/**
-	 * Set the end date.
-	 * @param setEndDate end date to set.
-	 */
-	public void setEndDate(Date setEndDate){
-		endDate = setEndDate;
-	}
-	/**
-	 * Get the end date.
-	 * @return End Date of the event.
-	 */
-	public Date getEndDate(){
-		return endDate;
-	}
 
 	/**
 	 * Saves all event data to file
@@ -136,7 +117,6 @@ public class Event implements Savable {
 				writer.println(this.id.toString());
 				writer.println(this.eventName);
 				writer.println(this.format.format(startDate));
-				writer.println(this.format.format(endDate));
 				writer.println(this.location);
 				writer.println(this.category);
 				writer.println(this.notes);
@@ -156,5 +136,10 @@ public class Event implements Savable {
 		file.delete();
 
 		PIM.getEventManager().remove(this);
+	}
+
+	@Override
+	public String toString() {
+		return this.eventName + " " + this.format.format(this.startDate);
 	}
 }

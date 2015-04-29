@@ -26,7 +26,6 @@ public class Task implements Savable {
 		try {
 			this.dueDateTime = this.dateFormat.parse(lines.get(2));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.taskStatus = Boolean.parseBoolean(lines.get(3));
@@ -75,17 +74,8 @@ public class Task implements Savable {
 		taskName = newName;
 	}
 
-	public void setDueDateTime(String newDueDate) {
-		if(newDueDate.length() > 0) {
-			try
-			{
-				dueDateTime = dateFormat.parse(newDueDate);
-			}
-			catch (ParseException e)
-			{
-				e.printStackTrace();
-			}
-		}
+	public void setDueDateTime(Date date) {
+		dueDateTime = date;
 	}
 
 	public void setTaskStatus(boolean newStatus) {
@@ -112,7 +102,7 @@ public class Task implements Savable {
 			try (PrintWriter writer = new PrintWriter(file)) {
 				writer.println(this.id.toString());
 				writer.println(this.taskName.toString());
-				writer.println(this.dateFormat.format(dueDateTime));
+				writer.println(this.dueDateTime != null ? this.dateFormat.format(dueDateTime) : "");
 				writer.println(this.taskStatus);
 				writer.println(this.taskNotes.toString());
 			}

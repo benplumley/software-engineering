@@ -169,12 +169,15 @@ public class AddContactPanel extends JPanel implements ActionListener
 			case "ADD":
 				if (this.firstNameField.getText().length() == 0) {
 					JOptionPane.showMessageDialog(this, "You need to enter a first name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				else if (!PIM.checkIsNumeric(this.mobileField.getText()) || !PIM.checkIsNumeric(this.workNumberField.getText()) || !PIM.checkIsNumeric(this.homeNumberField.getText())) {
 					JOptionPane.showMessageDialog(this, "You can only enter numbers for phone numbers!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				else if (this.mobileField.getText().length() != 11 || this.workNumberField.getText().length() != 11 || this.homeNumberField.getText().length() != 11) {
-					JOptionPane.showMessageDialog(this, "The phone number must be 11 numbers!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "The phone number must be 11 numbers long!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 
 				this.contact.setFirstName(this.firstNameField.getText());
