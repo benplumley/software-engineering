@@ -169,6 +169,8 @@ public class AddContactPanel extends JPanel implements ActionListener
 		this.cityField.setText(contact.getCity());
 		this.postcodeField.setText(contact.getPostcode());
 		this.notesField.setText(contact.getNotes());
+
+		this.addButton.setText("Save");
 	}
 
 	/**
@@ -184,11 +186,11 @@ public class AddContactPanel extends JPanel implements ActionListener
 					JOptionPane.showMessageDialog(this, "You need to enter a first name!", "Oops!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				else if (!PIM.checkIsNumeric(this.mobileField.getText()) || !PIM.checkIsNumeric(this.workNumberField.getText()) || !PIM.checkIsNumeric(this.homeNumberField.getText())) {
+				else if ((this.mobileField.getText().length() > 0 && !PIM.checkIsNumeric(this.mobileField.getText())) || (this.workNumberField.getText().length() > 0 && !PIM.checkIsNumeric(this.workNumberField.getText())) || (this.homeNumberField.getText().length() > 0 && !PIM.checkIsNumeric(this.homeNumberField.getText()))) {
 					JOptionPane.showMessageDialog(this, "You can only enter numbers for phone numbers!", "Oops!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				else if (this.mobileField.getText().length() != 11 || this.workNumberField.getText().length() != 11 || this.homeNumberField.getText().length() != 11) {
+				else if ((this.mobileField.getText().length() > 0 && this.mobileField.getText().length() != 11) || (this.workNumberField.getText().length() > 0 && this.workNumberField.getText().length() != 11) || (this.homeNumberField.getText().length() > 0 && this.homeNumberField.getText().length() != 11)) {
 					JOptionPane.showMessageDialog(this, "The phone number must be 11 numbers long!", "Oops!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}

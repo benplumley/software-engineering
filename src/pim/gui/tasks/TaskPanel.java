@@ -18,6 +18,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 
 	private JButton addButton;
 	private JButton viewButton;
+	private JButton deleteButton;
 
 	/**
 	 * Constructs the TaskPanel class
@@ -56,6 +57,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 		homeButton.addActionListener(this);
 		homeButton.setActionCommand("ROOT");
 
+		this.deleteButton = new JButton("Delete");
+		this.deleteButton.addActionListener(this);
+		this.deleteButton.setActionCommand("DELETE");
+		this.deleteButton.setEnabled(false);
+
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
@@ -69,7 +75,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 		buttonPanel.add(this.viewButton, constraints);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.gridwidth = 2;
+		buttonPanel.add(this.deleteButton, constraints);
+		constraints.gridx = 1;
+		constraints.gridy = 1;
 		buttonPanel.add(homeButton, constraints);
 
 		this.taskList.addListSelectionListener(new ListSelectionListener() {
@@ -77,9 +85,11 @@ public class TaskPanel extends JPanel implements ActionListener {
 			public void valueChanged(ListSelectionEvent e) {
 				if (taskList.getSelectedIndex() == -1) {
 					viewButton.setEnabled(false);
+					deleteButton.setEnabled(false);
 				}
 				else {
 					viewButton.setEnabled(true);
+					deleteButton.setEnabled(true);
 				}
 			}
 		});
@@ -99,8 +109,6 @@ public class TaskPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
-
-		String[] params = e.getActionCommand().replace(command, "").split(" ");
 
 		Task selectedTask = this.taskList.getSelectedValue();
 
@@ -126,9 +134,9 @@ public class TaskPanel extends JPanel implements ActionListener {
 				break;
 
 			case "DELETE":
-				Task task = PIM.getTaskManager().getTask(UUID.fromString(params[0]));
-
-				task.delete();
+				selectedTask.delete();
+				updateTaskList();
+				repaint();
 				break;
 		}
 	}
@@ -155,6 +163,7 @@ public class TaskPanel extends JPanel implements ActionListener {
 		c.remove(this.taskList);
 		this.taskList.setModel(getListModel());
 		this.viewButton.setEnabled(false);
+		this.deleteButton.setEnabled(false);
 		c.add(this.taskList);
 	}
 

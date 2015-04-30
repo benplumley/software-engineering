@@ -19,6 +19,7 @@ public class EventsPanel extends JPanel implements ActionListener {
 
 	private JButton addButton;
 	private JButton viewButton;
+	private JButton deleteButton;
 
 	/**
 	 * Constructs the EventsPanel class
@@ -57,6 +58,11 @@ public class EventsPanel extends JPanel implements ActionListener {
 		homeButton.addActionListener(this);
 		homeButton.setActionCommand("ROOT");
 
+		this.deleteButton = new JButton("Delete");
+		this.deleteButton.addActionListener(this);
+		this.deleteButton.setActionCommand("DELETE");
+		this.deleteButton.setEnabled(false);
+
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
@@ -70,7 +76,9 @@ public class EventsPanel extends JPanel implements ActionListener {
 		buttonPanel.add(this.viewButton, constraints);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.gridwidth = 2;
+		buttonPanel.add(this.deleteButton, constraints);
+		constraints.gridx = 1;
+		constraints.gridy = 1;
 		buttonPanel.add(homeButton, constraints);
 
 		this.eventsList.addListSelectionListener(new ListSelectionListener()
@@ -81,10 +89,12 @@ public class EventsPanel extends JPanel implements ActionListener {
 				if (eventsList.getSelectedIndex() == -1)
 				{
 					viewButton.setEnabled(false);
+					deleteButton.setEnabled(false);
 				}
 				else
 				{
 					viewButton.setEnabled(true);
+					deleteButton.setEnabled(false);
 				}
 			}
 		});
@@ -104,8 +114,6 @@ public class EventsPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
-
-		String[] params = e.getActionCommand().replace(command, "").split(" ");
 
 		Event selectedEvent = this.eventsList.getSelectedValue();
 
@@ -131,9 +139,9 @@ public class EventsPanel extends JPanel implements ActionListener {
 				break;
 
 			case "DELETE":
-				Contact contact = PIM.getContactManager().getContact(UUID.fromString(params[0]));
-
-				contact.delete();
+				selectedEvent.delete();
+				updateEventsList();
+				repaint();
 				break;
 		}
 	}
@@ -160,6 +168,7 @@ public class EventsPanel extends JPanel implements ActionListener {
 		c.remove(this.eventsList);
 		this.eventsList.setModel(getListModel());
 		this.viewButton.setEnabled(false);
+		this.deleteButton.setEnabled(false);
 		c.add(this.eventsList);
 	}
 

@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class Task implements Savable {
-	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.ENGLISH);;
+	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);;
 
 	private final UUID id;
 	private String taskName;
@@ -169,6 +169,6 @@ public class Task implements Savable {
 	 */
 	@Override
 	public String toString() {
-		return this.taskName;
+		return this.taskName + " - " + this.dateFormat.format(this.dueDate);
 	}
 }

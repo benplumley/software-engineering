@@ -20,6 +20,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 
 	private JButton addButton;
 	private JButton viewButton;
+	private JButton deleteButton;
 
 	/**
 	 * Constructs the ContactsPanel class
@@ -58,6 +59,11 @@ public class ContactsPanel extends JPanel implements ActionListener
 		homeButton.addActionListener(this);
 		homeButton.setActionCommand("ROOT");
 
+		this.deleteButton = new JButton("Delete");
+		this.deleteButton.addActionListener(this);
+		this.deleteButton.setActionCommand("DELETE");
+		this.deleteButton.setEnabled(false);
+
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
@@ -71,7 +77,9 @@ public class ContactsPanel extends JPanel implements ActionListener
 		buttonPanel.add(this.viewButton, constraints);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.gridwidth = 2;
+		buttonPanel.add(this.deleteButton, constraints);
+		constraints.gridx = 1;
+		constraints.gridy = 1;
 		buttonPanel.add(homeButton, constraints);
 
 		this.contactsList.addListSelectionListener(new ListSelectionListener()
@@ -82,10 +90,12 @@ public class ContactsPanel extends JPanel implements ActionListener
 				if (contactsList.getSelectedIndex() == -1)
 				{
 					viewButton.setEnabled(false);
+					deleteButton.setEnabled(false);
 				}
 				else
 				{
 					viewButton.setEnabled(true);
+					deleteButton.setEnabled(true);
 				}
 			}
 		});
@@ -105,9 +115,6 @@ public class ContactsPanel extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand().split(" ")[0];
-
-		String[] params = e.getActionCommand().replace(command, "").split(" ");
-
 		Contact selectedContact = this.contactsList.getSelectedValue();
 
 		switch (command) {
@@ -132,9 +139,9 @@ public class ContactsPanel extends JPanel implements ActionListener
 				break;
 
 			case "DELETE":
-				Contact contact = PIM.getContactManager().getContact(UUID.fromString(params[0]));
-
-				contact.delete();
+				selectedContact.delete();
+				updateContactsList();
+				repaint();
 				break;
 		}
 	}
@@ -161,6 +168,7 @@ public class ContactsPanel extends JPanel implements ActionListener
 		c.remove(this.contactsList);
 		this.contactsList.setModel(getListModel());
 		this.viewButton.setEnabled(false);
+		this.deleteButton.setEnabled(false);
 		c.add(this.contactsList);
 	}
 

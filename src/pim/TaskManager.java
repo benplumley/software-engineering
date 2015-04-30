@@ -5,7 +5,7 @@ import java.util.*;
 
 public class TaskManager extends Manager {
 	private final Map<UUID, Task> tasks;
-	private static final int SAVE_FILE_LENGTH = 7;
+	private static final int SAVE_FILE_LENGTH = 5;
 
 	public TaskManager() {
 		this.tasks = new HashMap<>();
@@ -84,6 +84,32 @@ public class TaskManager extends Manager {
 	 * @return Valid tasks
 	 */
 	public Collection<Task> getTasks() {
-		return this.tasks.values();
+		List<Task> activeTasks = new ArrayList<>();
+		Date currentDate = new Date();
+
+		for (Task task : this.tasks.values()) {
+			Calendar dueCal = Calendar.getInstance();
+			Calendar nowCal = Calendar.getInstance();
+			dueCal.setTime(task.getDueDate());
+			nowCal.setTime(currentDate);
+			boolean sameDay = dueCal.get(Calendar.YEAR) == nowCal.get(Calendar.YEAR) &&
+					dueCal.get(Calendar.DAY_OF_YEAR) == nowCal.get(Calendar.DAY_OF_YEAR);
+			if (currentDate.after(task.getDueDate()) && !sameDay) {
+				continue;
+			}
+
+			activeTasks.add(task);
+		}
+
+		Collections.sort(activeTasks, new Comparator<Task>()
+		{
+			@Override
+			public int compare(Task o1, Task o2)
+			{
+				return o1.getDueDate().after(o2.getDueDate()) ? 1 : -1;
+			}
+		});
+
+		return activeTasks;
 	}
 }

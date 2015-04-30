@@ -91,7 +91,14 @@ public class EventManager extends Manager {
 		List<Event> activeEvents = new ArrayList<>();
 		Date currentDate = new Date();
 		for (Event event : this.events.values()) {
-			if (currentDate.after(event.getStartDate())) {
+			Calendar startDate = Calendar.getInstance();
+			Calendar nowCal = Calendar.getInstance();
+			startDate.setTime(event.getStartDate());
+			nowCal.setTime(currentDate);
+			boolean sameDay = startDate.get(Calendar.YEAR) == nowCal.get(Calendar.YEAR) &&
+					startDate.get(Calendar.DAY_OF_YEAR) == nowCal.get(Calendar.DAY_OF_YEAR);
+
+			if (currentDate.after(event.getStartDate()) && !sameDay) {
 				continue;
 			}
 

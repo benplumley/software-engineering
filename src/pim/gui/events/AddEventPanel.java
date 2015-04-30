@@ -59,7 +59,7 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		JLabel locationLabel = new JLabel("Location");
 		JLabel notesLabel = new JLabel("Notes");
 		JLabel categoryLabel = new JLabel("Category");
-		JLabel startDateLabel = new JLabel("Start Date");;
+		JLabel startDateLabel = new JLabel("Date");;
 
 		this.addButton = new JButton("Add");
 		this.addButton.addActionListener(this);
@@ -74,8 +74,8 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this.editButton.setActionCommand("EDIT");
 
 
-		JPanel pane = new JPanel(new GridLayout(15, 0));
-		pane.setPreferredSize(new Dimension(180, 550));
+		JPanel pane = new JPanel(new GridLayout(13, 0));
+		pane.setPreferredSize(new Dimension(180, 400));
 		pane.add(eventNameLabel);
 		pane.add(eventNameField);
 		pane.add(locationLabel);
@@ -135,6 +135,8 @@ public class AddEventPanel extends JPanel implements ActionListener {
 		this.startDatePicker.getModel().setMonth(c.get(Calendar.MONTH));
 		this.startDatePicker.getModel().setYear(c.get(Calendar.YEAR));
 		this.startDatePicker.getModel().setSelected(true);
+
+		this.addButton.setText("Save");
 	}
 
 	/**
@@ -146,9 +148,28 @@ public class AddEventPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 			case "ADD":
+
+				Date eventDate = (Date)this.startDatePicker.getModel().getValue();
+				Date dateNow = new Date();
+
+				Calendar dueCal = Calendar.getInstance();
+				Calendar nowCal = Calendar.getInstance();
+				dueCal.setTime(eventDate);
+				nowCal.setTime(dateNow);
+				boolean sameDay = dueCal.get(Calendar.YEAR) == nowCal.get(Calendar.YEAR) &&
+						dueCal.get(Calendar.DAY_OF_YEAR) == nowCal.get(Calendar.DAY_OF_YEAR);
+
 				Date startDate = (Date)this.startDatePicker.getModel().getValue();
 				if (this.eventNameField.getText().length() == 0) {
 					JOptionPane.showMessageDialog(this, "You need to enter an event name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				else if (startDate == null) {
+					JOptionPane.showMessageDialog(this, "You need to set a date!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				else if (!startDate.after(dateNow) && !sameDay) {
+					JOptionPane.showMessageDialog(this, "You cannot set a date before today!", "Oops!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 

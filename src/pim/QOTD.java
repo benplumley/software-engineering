@@ -1,12 +1,10 @@
 package pim;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class QOTD {
 	/**
@@ -14,17 +12,23 @@ public class QOTD {
 	 * @return Today's quote
 	 */
 	public static String getTodaysQuote() {
-		try {
-			File quoteFile = new File("Data/Quotes/quotes.txt");
-			List<String> quotes = Files.readAllLines(quoteFile.toPath(), Charset.defaultCharset());
-			Date date = new Date();
-			int todaysDate = Integer.parseInt(new SimpleDateFormat("dd").format(date));
-			String todaysQuote = quotes.get(todaysDate);
-			return todaysQuote;
+
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(QOTD.class.getClassLoader().getResourceAsStream("quotes.txt")))) {
+			int i = 1;
+			int todaysDate = Integer.parseInt(new SimpleDateFormat("dd").format(new Date()));
+
+			String quote = "";
+			while (i <= todaysDate) {
+				quote = reader.readLine();
+				i++;
+			}
+
+			return quote;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "";
 		}
+
+		return "";
 	}
 
 }

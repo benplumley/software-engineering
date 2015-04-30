@@ -20,7 +20,6 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 	private JTextField nameField;
 	private JDatePickerImpl dueDatePicker;
 	private JTextField notesField;
-	private JTextField statusField;
 
 	private JButton addButton;
 	private JButton editButton;
@@ -35,8 +34,6 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.task = new Task();
 		this.nameField = new JTextField();
 		this.notesField = new JTextField();
-		this.statusField = new JTextField();
-
 
 		Properties prop = new Properties();
 		prop.put("text.today", "Today");
@@ -50,7 +47,7 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.notesField.setActionCommand("ADD");
 
 		JLabel nameLabel = new JLabel("Task Name");
-		JLabel dueLabel = new JLabel("Due Date/Time");
+		JLabel dueLabel = new JLabel("Due Date");
 		JLabel notesLabel = new JLabel("Notes");
 
 		this.addButton = new JButton("Add");
@@ -66,8 +63,8 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.editButton.setActionCommand("EDIT");
 
 
-		JPanel pane = new JPanel(new GridLayout(7, 1));
-		pane.setPreferredSize(new Dimension(180, 390));
+		JPanel pane = new JPanel(new GridLayout(7, 0));
+		pane.setPreferredSize(new Dimension(180, 200));
 		pane.add(nameLabel);
 		pane.add(nameField);
 		pane.add(dueLabel);
@@ -88,11 +85,15 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		c.gridx = 2;
 		panel.add(this.cancelButton, c);
 		pane.add(panel);
-		JScrollPane scrollPane = new JScrollPane(pane);
-		scrollPane.setMinimumSize(new Dimension(200, 270));
-		scrollPane.setPreferredSize(new Dimension(180, 270));
-		add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		this.dueDatePicker.getModel().setDay(cal.get(Calendar.DAY_OF_MONTH));
+		this.dueDatePicker.getModel().setMonth(cal.get(Calendar.MONTH));
+		this.dueDatePicker.getModel().setYear(cal.get(Calendar.YEAR));
+		this.dueDatePicker.getModel().setSelected(true);
+
+		add(pane);
 		unlockElements();
 	}
 
@@ -106,14 +107,15 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.task = task;
 
 		this.nameField.setText(task.getTaskName());
-		this.statusField.setText(task.getTaskStatusString());
-
+		this.notesField.setText(task.getTaskNotes());
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(this.task.getDueDate());
 		this.dueDatePicker.getModel().setDay(c.get(Calendar.DAY_OF_MONTH));
 		this.dueDatePicker.getModel().setMonth(c.get(Calendar.MONTH));
 		this.dueDatePicker.getModel().setYear(c.get(Calendar.YEAR));
+
+		this.addButton.setText("Save");
 	}
 
 	/**
@@ -125,11 +127,31 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 			case "ADD":
+				Date dueDate = (Date) this.dueDatePicker.getModel().getValue();
+				Date dateNow = new Date();
+
+				Calendar dueCal = Calendar.getInstance();
+				Calendar nowCal = Calendar.getInstance();
+				dueCal.setTime(dueDate);
+				nowCal.setTime(dateNow);
+				boolean sameDay = dueCal.get(Calendar.YEAR) == nowCal.get(Calendar.YEAR) &&
+						dueCal.get(Calendar.DAY_OF_YEAR) == nowCal.get(Calendar.DAY_OF_YEAR);
+
 				if (this.nameField.getText().length() == 0) {
 					JOptionPane.showMessageDialog(this, "You need to enter a task name!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
+				else if (dueDate == null) {
+					JOptionPane.showMessageDialog(this, "You need to set a due date!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				else if (!dueDate.after(new Date()) && !sameDay) {
+					JOptionPane.showMessageDialog(this, "You cannot set a date before today!", "Oops!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
 				this.task.setTaskName(this.nameField.getText());
-				this.task.setDueDate((Date) this.dueDatePicker.getModel().getValue());
+				this.task.setDueDate(dueDate);
 				this.task.setTaskNotes(this.notesField.getText());
 
 				this.task.addOrUpdate();
@@ -154,6 +176,9 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.nameField.setEnabled(false);
 		this.dueDatePicker.setEnabled(false);
 		this.notesField.setEnabled(false);
+
+		this.addButton.setVisible(false);
+		this.editButton.setVisible(true);
 	}
 
 	/**
@@ -163,5 +188,8 @@ public class AddTaskPanel extends JPanel implements ActionListener {
 		this.nameField.setEnabled(true);
 		this.dueDatePicker.setEnabled(true);
 		this.notesField.setEnabled(true);
+
+		this.addButton.setVisible(true);
+		this.editButton.setVisible(false);
 	}
 }
